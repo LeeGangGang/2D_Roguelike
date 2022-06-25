@@ -14,8 +14,6 @@ public class MonsterAnimCtrl : MonoBehaviour
     Coroutine AttCoroutine;
     private int RandomAtt = -1;
     private Transform MyTr;
-    public Vector2[] AttCenter;
-    public Vector2[] AttRect;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +39,7 @@ public class MonsterAnimCtrl : MonoBehaviour
                 Anim.SetInteger(AnimTrigger, 1);
                 break;
             case AnimState.Attack:
-                RandomAtt = Random.Range(0, AttRect.Length);
+                RandomAtt = Random.Range(0, MonCtrl.unit.AttCenter.Length);
                 Anim.SetInteger("Attack", RandomAtt);
                 break;
             case AnimState.Skill:
@@ -60,11 +58,15 @@ public class MonsterAnimCtrl : MonoBehaviour
     {
         if (RandomAtt < 0)
             return;
+        float attCenterLR;
+        if (MonCtrl.unit.Name == "Bringer of death")
+            attCenterLR = MonCtrl.transform.localScale.x > 0 ? MonCtrl.unit.AttCenter[RandomAtt].x : -MonCtrl.unit.AttCenter[RandomAtt].x;
+        else
+            attCenterLR = MonCtrl.MySprite.flipX ? MonCtrl.unit.AttCenter[RandomAtt].x : -MonCtrl.unit.AttCenter[RandomAtt].x;
 
-        float AttCenterLR = MonCtrl.MySprite.flipX ? AttCenter[RandomAtt].x : -AttCenter[RandomAtt].x;
-        Vector2 attCenter = new Vector2(MyTr.position.x + AttCenterLR, MyTr.position.y + AttCenter[RandomAtt].y);
+        Vector2 attCenter = new Vector2(MyTr.position.x + attCenterLR, MyTr.position.y + MonCtrl.unit.AttCenter[RandomAtt].y);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(attCenter, AttRect[RandomAtt]);
+        Gizmos.DrawWireCube(attCenter, MonCtrl.unit.AttSize[RandomAtt]);
     }
 
     void AttackStart()
@@ -76,12 +78,17 @@ public class MonsterAnimCtrl : MonoBehaviour
     {
         if (RandomAtt != -1)
         {
-            bool isAttack = false;
-            while (isAttack == false)
+            bool takeDamage = false;
+            while (takeDamage == false)
             {
-                float attCenterLR = MonCtrl.MySprite.flipX ? AttCenter[RandomAtt].x : -AttCenter[RandomAtt].x;
-                Vector2 attCenter = new Vector2(MyTr.position.x + attCenterLR, MyTr.position.y + AttCenter[RandomAtt].y);
-                Collider2D[] arrCol2D = Physics2D.OverlapBoxAll(attCenter, AttRect[RandomAtt], 0);
+                float attCenterLR;
+                if (MonCtrl.unit.Name == "Bringer of death")
+                    attCenterLR = MonCtrl.transform.localScale.x > 0 ? MonCtrl.unit.AttCenter[RandomAtt].x : -MonCtrl.unit.AttCenter[RandomAtt].x;
+                else
+                    attCenterLR = MonCtrl.MySprite.flipX ? MonCtrl.unit.AttCenter[RandomAtt].x : -MonCtrl.unit.AttCenter[RandomAtt].x;
+
+                Vector2 attCenter = new Vector2(MyTr.position.x + attCenterLR, MyTr.position.y + MonCtrl.unit.AttCenter[RandomAtt].y);
+                Collider2D[] arrCol2D = Physics2D.OverlapBoxAll(attCenter, MonCtrl.unit.AttSize[RandomAtt], 0);
                 foreach (Collider2D col in arrCol2D)
                 {
                     if (col.gameObject.CompareTag("Player"))
@@ -94,7 +101,7 @@ public class MonsterAnimCtrl : MonoBehaviour
                         Vector2 knockback = new Vector2(knockbackX, 2);
                         col.transform.GetComponent<Rigidbody2D>().velocity = knockback;
                         
-                        isAttack = true;
+                        takeDamage = true;
                         break;
                     }
                 }
@@ -105,10 +112,10 @@ public class MonsterAnimCtrl : MonoBehaviour
 
     void ActionAnimEnd()
     {
-        if (AttCoroutine != null)
+        if (!ReferenceEquals(AttCoroutine, null))
             StopCoroutine(AttCoroutine);
 
         Anim.SetInteger("Attack", -1);
-        MonCtrl.CurState = AnimState.Idle;
+        MonCtrl.CurState = AnimState.Null;
     }
 }

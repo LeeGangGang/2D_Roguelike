@@ -30,6 +30,6 @@ public class Fire_MagicStaff : Weapon
     {
         Vector3 pos = GameObject.Find("Player").transform.position;
         GameObject a_refFireField = GameObject.Instantiate(FireField, pos, Quaternion.identity);
-        a_refFireField.GetComponent<FireFieldCtrl>().Damage = Info.Skill_Dmg;
+        a_refFireField.GetComponentInChildren<FireFieldCtrl>().Damage = Info.Skill_Dmg;
     }
 }

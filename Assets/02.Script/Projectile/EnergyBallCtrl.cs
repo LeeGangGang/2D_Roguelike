@@ -18,14 +18,10 @@ public class EnergyBallCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TargetObj != null)
-        {
+        if (!ReferenceEquals(TargetObj, null))
             BulletHoming();
-        }
         else
-        {
             transform.Translate(Vector2.right * Time.deltaTime * MoveSpeed);
-        }
         
         Destroy(gameObject, 3f);
     }
@@ -38,10 +34,12 @@ public class EnergyBallCtrl : MonoBehaviour
         MoveSpeed = mvSpeed;
         Damage = damage;
 
+        TargetObj = null;
+
         //유도탄인 경우...
         if (isHoming)
         {
-            if (TargetObj == null && IsTaget == false)
+            if (IsTaget == false)
                 FindEnemy();
         }
     }
@@ -92,7 +90,7 @@ public class EnergyBallCtrl : MonoBehaviour
         }
 
         TargetObj = a_Find_Mon;
-        if (TargetObj != null)
+        if (!ReferenceEquals(TargetObj, null))
             IsTaget = true;
     }
 
@@ -110,6 +108,8 @@ public class EnergyBallCtrl : MonoBehaviour
 
     void Explode()
     {
+        SoundManager.Inst.PlayEffSound("EnergyBall_Hit");
+
         GameObject explosion = Instantiate(Explosion, this.transform.position, Quaternion.identity);
         Destroy(explosion, 0.6f);
     }

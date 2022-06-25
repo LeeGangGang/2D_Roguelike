@@ -54,41 +54,50 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\02.Script\DamageTxtCtrl.cs" />
-    <Compile Include="Assets\02.Script\CameraCtrl.cs" />
+    <Compile Include="Assets\02.Script\InGamePlayCtrl\CameraCtrl.cs" />
     <Compile Include="Assets\02.Script\Projectile\EnergyBallCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Fire_MagicStaff.cs" />
     <Compile Include="Assets\02.Script\Projectile\FireFieldCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Energy_MagicStaff.cs" />
     <Compile Include="Assets\02.Script\EffectorGroundCtrl.cs" />
-    <Compile Include="Assets\02.Script\BackgroundCtrl.cs" />
-    <Compile Include="Assets\02.Script\Bose\Bose_SkillCtrl.cs" />
+    <Compile Include="Assets\02.Script\InGamePlayCtrl\BackgroundCtrl.cs" />
+    <Compile Include="Assets\02.Script\Monster\SkeletonCtrl.cs" />
+    <Compile Include="Assets\02.Script\Boss\Boss_SkillCtrl.cs" />
     <Compile Include="Assets\02.Script\Player\FollowArm.cs" />
     <Compile Include="Assets\02.Script\Projectile\FireBreathCtrl.cs" />
+    <Compile Include="Assets\02.Script\Root\Interaction.cs" />
+    <Compile Include="Assets\02.Script\PortalCtrl.cs" />
     <Compile Include="Assets\02.Script\Monster\MonsterCtrl.cs" />
-    <Compile Include="Assets\02.Script\UnitCtrl.cs" />
+    <Compile Include="Assets\02.Script\Root\UnitCtrl.cs" />
     <Compile Include="Assets\02.Script\Player\PlayerCtrl.cs" />
+    <Compile Include="Assets\02.Script\Manager\CutSceneMgr.cs" />
     <Compile Include="Assets\02.Script\Player\PlayerAnimCtrl.cs" />
-    <Compile Include="Assets\02.Script\Bose\BoseCtrl.cs" />
-    <Compile Include="Assets\02.Script\SceneManager\MainSceneMgr.cs" />
-    <Compile Include="Assets\02.Script\Bose\AIPathFinder.cs" />
-    <Compile Include="Assets\02.Script\SceneManager\TitleSceneMgr.cs" />
-    <Compile Include="Assets\02.Script\SceneManager\FadeSceneMgr.cs" />
+    <Compile Include="Assets\02.Script\Boss\BossCtrl.cs" />
+    <Compile Include="Assets\02.Script\PlayerSpawnPos.cs" />
+    <Compile Include="Assets\02.Script\UnitData.cs" />
+    <Compile Include="Assets\02.Script\Manager\GameManager.cs" />
+    <Compile Include="Assets\02.Script\Boss\AIPathFinder.cs" />
+    <Compile Include="Assets\02.Script\Manager\TitleSceneMgr.cs" />
+    <Compile Include="Assets\02.Script\Manager\FadeSceneMgr.cs" />
     <Compile Include="Assets\02.Script\Monster\MonsterAnimCtrl.cs" />
-    <Compile Include="Assets\02.Script\CursorCtrl.cs" />
+    <Compile Include="Assets\02.Script\InGamePlayCtrl\CursorCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Weapon.cs" />
+    <Compile Include="Assets\02.Script\Manager\SoundManager.cs" />
+    <Compile Include="Assets\02.Script\Manager\ConfigBoxCtrl.cs" />
+    <Compile Include="Assets\02.Script\Weapon\Sword.cs" />
+    <Compile Include="Assets\02.Script\Projectile\SwordAttackCtrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\01.Image\SimplePixelUI\fonts\Font2\license.txt" />
+    <None Include="Assets\11.ShootingSound\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\01.Image\Cainos\Pixel Art Platformer - Village Props\Changelog.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
-    <None Include="Assets\01.Image\SimplePixelUI\fonts\Font1\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
@@ -96,9 +105,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\01.Image\SimplePixelUI\fonts\Font1\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\01.Image\SimplePixelUI\fonts\Font2\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
@@ -738,6 +745,12 @@
     </Reference>
     <Reference Include="Unity.2D.IK.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Triangle.Runtime.dll</HintPath>

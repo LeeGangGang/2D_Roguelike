@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2cc8940be5d5e4408ff105af3c7eb68, type: 3}
+  m_Name: Goblin Data
+  m_EditorClassIdentifier: 
+  Name: Goblin
+  Hp: 200
+  Mp: 0
+  Attack: 5
+  Critical_Per: 50
+  AttackCool: 1
+  Defence: 1
+  AttackCenter:
+  - {x: 0, y: -0.1}
+  - {x: -1.1, y: -0.3}
+  AttackSize:
+  - {x: 2.7, y: 1.4}
+  - {x: 1.8, y: 0.9}
+  TraceDist: 3

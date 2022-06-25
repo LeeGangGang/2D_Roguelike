@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireFieldCtrl : MonoBehaviour
 {
-    public float Damage = 5f;
+    public float Damage = 10f;
 
     private float DelayTime = 0.3f;
     private float CurDelayTime;

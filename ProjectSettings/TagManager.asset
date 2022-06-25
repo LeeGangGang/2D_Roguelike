@@ -17,7 +17,7 @@ TagManager:
   - Ground
   - Projectile
   - Player
-  - 
+  - MiniMap
   - 
   - 
   - 
@@ -50,12 +50,21 @@ TagManager:
   - name: Ground
     uniqueID: 2469267491
     locked: 0
+  - name: BackObject
+    uniqueID: 559495125
+    locked: 0
   - name: Unit
     uniqueID: 2847689409
+    locked: 0
+  - name: FrontObject
+    uniqueID: 2567580113
     locked: 0
   - name: Projectile
     uniqueID: 592336721
     locked: 0
   - name: DamageText
     uniqueID: 2322831007
+    locked: 0
+  - name: MinimapIcon
+    uniqueID: 2634588515
     locked: 0

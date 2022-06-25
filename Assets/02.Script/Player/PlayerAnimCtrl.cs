@@ -4,28 +4,25 @@ using UnityEngine;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
-    PlayerCtrl PlayerCtrl;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        PlayerCtrl = this.GetComponentInParent<PlayerCtrl>();
-    }
-
     void Attack()
     {
-        if (PlayerCtrl.WeaponCtrl != null)
-            PlayerCtrl.WeaponCtrl.Attack();
+        if (!ReferenceEquals(GameManager.Inst.PlayerCtrl.WeaponCtrl, null))
+            GameManager.Inst.PlayerCtrl.WeaponCtrl.Attack();
     }
 
     void Skill()
     {
-        if (PlayerCtrl.WeaponCtrl != null)
-            PlayerCtrl.WeaponCtrl.Skill();
+        if (!ReferenceEquals(GameManager.Inst.PlayerCtrl.WeaponCtrl, null))
+            GameManager.Inst.PlayerCtrl.WeaponCtrl.Skill();
+    }
+
+    void AttackEnd()
+    {
+        GameManager.Inst.PlayerCtrl.IsAttack = false;
     }
 
     void SkillEnd()
     {
-        PlayerCtrl.IsSkill = false;
+        GameManager.Inst.PlayerCtrl.IsSkill = false;
     }
 }

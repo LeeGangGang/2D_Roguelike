@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireBreathCtrl : MonoBehaviour
 {
-    public float Damage = 2f;
+    public float Damage = 10f;
 
     private float DelayTime = 0.2f;
     private float CurDelayTime;

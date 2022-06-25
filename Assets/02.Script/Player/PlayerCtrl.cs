@@ -30,6 +30,7 @@ public class PlayerCtrl : UnitCtrl
         }
     }
 
+    public bool IsAttack = false;
     public bool IsSkill = false;
     private bool Jump = false;
     private int JumpMaxCnt = 2;
@@ -42,9 +43,13 @@ public class PlayerCtrl : UnitCtrl
     [HideInInspector] public Animator Anim;
     [HideInInspector] public Rigidbody2D Rigid;
 
+    public Interaction InteractionObj;
+
     // Start is called before the first frame update
     void Awake()
     {
+        PlayerInfo.Name = "Player";
+
         Anim = this.GetComponentInChildren<Animator>();
         Rigid = this.GetComponent<Rigidbody2D>();
 
@@ -96,9 +101,12 @@ public class PlayerCtrl : UnitCtrl
                 Anim.SetInteger(AnimTrigger, 2);
             }
         }
-        
+
         if (Input.GetMouseButtonDown(0))
+        {
             Anim.SetTrigger("Attack");
+            IsAttack = true;
+        }
         if (Input.GetMouseButtonDown(1))
         {
             if (!Jump)
@@ -115,6 +123,12 @@ public class PlayerCtrl : UnitCtrl
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Anim.SetTrigger("Die");
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (!ReferenceEquals(InteractionObj, null))
+                InteractionObj.InteractionFunc();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)

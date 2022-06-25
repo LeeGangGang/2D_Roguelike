@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterCtrl : UnitCtrl
 {
-    [HideInInspector] public UnitInfo MonInfo = new UnitInfo();
-
+    public UnitData UnitData;
     private Transform TargetPlayerTr;
-    public float TraceDist;
-    public float AttackDist;
 
     private float CurAttCool;
 
@@ -17,14 +15,16 @@ public class MonsterCtrl : UnitCtrl
     private float MoveLimitX, MoveLimitY;
 
     private Rigidbody2D Rigid;
-    private float PlayerColliderRadius = 0.18f - 0.02f;
+
+    public Image CurHpImg;
 
     void Awake()
     {
+        UnitInfo MonInfo = new UnitInfo();
+        MonInfo.Init(UnitData);
+
         TargetPlayerTr = GameObject.Find("Player").transform;
 
-        MonInfo.MaxHp = 100;
-        MonInfo.CurHp = 100;
         CurAttCool = MonInfo.AttackCool;
 
         Rigid = this.GetComponent<Rigidbody2D>();
@@ -32,7 +32,6 @@ public class MonsterCtrl : UnitCtrl
         Collider2D bodyCol = this.GetComponent<Collider2D>();
         MoveLimitX = bodyCol.bounds.size.x / 2f + bodyCol.offset.x;
         MoveLimitY = bodyCol.bounds.size.y / 2f + bodyCol.offset.y;
-        AttackDist += PlayerColliderRadius;
 
         PatrolMoveStep();
 
@@ -41,8 +40,7 @@ public class MonsterCtrl : UnitCtrl
 
     void Update()
     {
-        Vector2 AttDist = new Vector2(Rigid.position.x + AttackDist, Rigid.position.y);
-        Debug.DrawRay(AttDist, Vector3.down, new Color(0, 1, 0));
+        Update_HpBar();
 
         if (CurState == AnimState.Die)
         {
@@ -69,16 +67,15 @@ public class MonsterCtrl : UnitCtrl
     {
         CurAttCool -= Time.deltaTime;
 
-        if (TargetPlayerTr == null)
+        if (ReferenceEquals(TargetPlayerTr, null))
             TargetPlayerTr = GameObject.Find("Player").transform;
 
-        float dist = Mathf.Abs(this.transform.position.x - TargetPlayerTr.position.x);
-        Vector3 attPos = this.transform.position;
-        attPos.x += AttackDist;
-        Debug.DrawRay(attPos, Vector3.down, new Color(1, 0, 0));
-        if (dist < TraceDist)
+        float distXY = (this.transform.position - TargetPlayerTr.position).magnitude;
+        if (distXY < unit.TraceDist)
         {
-            if (dist < AttackDist)
+            float attDistX = Mathf.Abs(unit.AttSize[0].x / 2f - unit.AttCenter[0].x);
+            float distX = Mathf.Abs(this.transform.position.x - TargetPlayerTr.position.x);
+            if (distX < attDistX)
             {
                 if (CurAttCool <= 0)
                 {
@@ -117,7 +114,7 @@ public class MonsterCtrl : UnitCtrl
         RaycastHit2D raycast = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
 
         // 탐지된 오브젝트가 null : 그 앞에 지형이 없음
-        if (raycast.collider == null)
+        if (ReferenceEquals(raycast.collider, null))
         {
             Rigid.velocity = Vector2.zero;
         }
@@ -135,14 +132,12 @@ public class MonsterCtrl : UnitCtrl
         if (TargetPlayerTr == null)
             TargetPlayerTr = GameObject.Find("Player").transform;
 
-        float dist = (this.transform.position - TargetPlayerTr.position).magnitude;
-        Debug.Log(dist);
-        Vector3 attPos = this.transform.position;
-        attPos.x += AttackDist;
-        Debug.DrawRay(attPos, Vector3.down, new Color(1, 0, 0));
-        if (dist < TraceDist)
+        float distXY = (this.transform.position - TargetPlayerTr.position).magnitude;
+        if (distXY < unit.TraceDist)
         {
-            if (dist < AttackDist)
+            float attDistX = Mathf.Abs(unit.AttSize[0].x / 2f - unit.AttCenter[0].x);
+            float distX = Mathf.Abs(this.transform.position.x - TargetPlayerTr.position.x);
+            if (distX < attDistX)
             {
                 if (CurAttCool <= 0)
                 {
@@ -155,7 +150,7 @@ public class MonsterCtrl : UnitCtrl
             else
             {
                 float traceMoveX = TargetPlayerTr.position.x - this.transform.position.x > 0 ? 3 : -3;
-                float traceMoveY = TargetPlayerTr.position.y - this.transform.position.y > 0 ? 3 : -3;
+                float traceMoveY = TargetPlayerTr.position.y + 1f - this.transform.position.y > 0 ? 3 : -3;
                 Vector2 traceMove = new Vector2(traceMoveX, traceMoveY);
                 Fly(traceMove);
             }
@@ -176,23 +171,11 @@ public class MonsterCtrl : UnitCtrl
 
         CurState = AnimState.Walk;
 
-        // 벽 밖으로 못나가도록
         float dirX = nextMove.x > 0 ? MoveLimitX : -MoveLimitX;
         float dirY = nextMove.y > 0 ? MoveLimitY : -MoveLimitY;
-        Vector2 frontVec = new Vector2(Rigid.position.x + dirX, Rigid.position.y + dirY);
-        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D raycast = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
 
-        // 탐지된 오브젝트가 null : 그 앞에 지형이 없음
-        //if (raycast.collider == null)
-        //{
-        //    Rigid.velocity = Vector2.zero;
-        //}
-        //else
-        {
-            Rigid.velocity = nextMove;
-            MySprite.flipX = nextMove.x < 0;
-        }
+        Rigid.velocity = nextMove;
+        MySprite.flipX = nextMove.x < 0;
     }
 
     void PatrolMoveStep()
@@ -201,5 +184,13 @@ public class MonsterCtrl : UnitCtrl
 
         float MoveNextTime = Random.Range(2f, 5f);
         Invoke("PatrolMoveStep", MoveNextTime);
+    }
+
+    void Update_HpBar()
+    {
+        if (unit.CurHp <= 0)
+            CurHpImg.gameObject.SetActive(false);
+        else
+            CurHpImg.fillAmount = (float)unit.CurHp / unit.MaxHp;
     }
 }
