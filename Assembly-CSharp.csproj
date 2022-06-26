@@ -59,13 +59,16 @@
     <Compile Include="Assets\02.Script\Weapon\Fire_MagicStaff.cs" />
     <Compile Include="Assets\02.Script\Projectile\FireFieldCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Energy_MagicStaff.cs" />
+    <Compile Include="Assets\02.Script\Projectile\SwordAttackCtrl.cs" />
     <Compile Include="Assets\02.Script\EffectorGroundCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\BackgroundCtrl.cs" />
     <Compile Include="Assets\02.Script\Monster\SkeletonCtrl.cs" />
     <Compile Include="Assets\02.Script\Boss\Boss_SkillCtrl.cs" />
     <Compile Include="Assets\02.Script\Player\FollowArm.cs" />
     <Compile Include="Assets\02.Script\Projectile\FireBreathCtrl.cs" />
+    <Compile Include="Assets\02.Script\Weapon\Sword.cs" />
     <Compile Include="Assets\02.Script\Root\Interaction.cs" />
+    <Compile Include="Assets\02.Script\Manager\SoundManager.cs" />
     <Compile Include="Assets\02.Script\PortalCtrl.cs" />
     <Compile Include="Assets\02.Script\Monster\MonsterCtrl.cs" />
     <Compile Include="Assets\02.Script\Root\UnitCtrl.cs" />
@@ -80,12 +83,9 @@
     <Compile Include="Assets\02.Script\Manager\TitleSceneMgr.cs" />
     <Compile Include="Assets\02.Script\Manager\FadeSceneMgr.cs" />
     <Compile Include="Assets\02.Script\Monster\MonsterAnimCtrl.cs" />
+    <Compile Include="Assets\02.Script\Manager\ConfigBoxCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\CursorCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Weapon.cs" />
-    <Compile Include="Assets\02.Script\Manager\SoundManager.cs" />
-    <Compile Include="Assets\02.Script\Manager\ConfigBoxCtrl.cs" />
-    <Compile Include="Assets\02.Script\Weapon\Sword.cs" />
-    <Compile Include="Assets\02.Script\Projectile\SwordAttackCtrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

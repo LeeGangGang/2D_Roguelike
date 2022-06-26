@@ -62,14 +62,16 @@ public class UnitCtrl : MonoBehaviour
         get { return State; }
         set
         {
+            if (State == value)
+                return;
             if (State == AnimState.Die)
                 return;
 
-            if (State == AnimState.Hit ||
-                State == AnimState.Attack ||
+            if (State == AnimState.Attack ||
                 State == AnimState.Skill)
             {
                 if (value == AnimState.Null ||
+                    value == AnimState.Hit ||
                     value == AnimState.Die)
                     State = value;
                 else

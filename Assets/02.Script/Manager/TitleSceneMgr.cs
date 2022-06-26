@@ -10,6 +10,9 @@ public class TitleSceneMgr : MonoBehaviour
     public Button ExitBtn;
     public Button ConfigBtn;
 
+    public GameObject ConfigBox;
+    public Transform CanvasTr;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +53,6 @@ public class TitleSceneMgr : MonoBehaviour
     void OpenConfig()
     {
         SoundManager.Inst.PlayUISound("Button1", 2f);
-
-        GameObject.Find("ConfigBoxCanvas").transform.GetChild(0).gameObject.SetActive(true);
+        Instantiate(ConfigBox, CanvasTr);
     }
 }

@@ -69,6 +69,9 @@ public class BossCtrl : UnitCtrl
 
         FindPlayerTimer -= Time.deltaTime;
 
+        if (CurState == AnimState.Attack || CurState == AnimState.Skill)
+            return;
+
         float attDistX = Mathf.Abs(unit.AttSize[0].x / 2f - unit.AttCenter[0].x);
         float attDistY = Mathf.Abs(unit.AttSize[0].y / 2f - unit.AttCenter[0].y);
         float distX = Mathf.Abs(this.transform.position.x - TargetPlayerTr.position.x);
@@ -103,7 +106,7 @@ public class BossCtrl : UnitCtrl
 
         int randomCnt = Random.Range(1, Skill_Pool.Count + 1);
         int[] randX = GetRandomInt(randomCnt, 9);
-        int[] randY = GetRandomInt(randomCnt, 5);
+        int[] randY = GetRandomInt(randomCnt, 7);
         int curCnt = 0;
         for (int i = 0; i < randomCnt; i++)
         {
@@ -122,7 +125,7 @@ public class BossCtrl : UnitCtrl
 
             curCnt++;
             if (randomCnt <= curCnt)
-                return;
+                break;
         }
         unit.CurMp -= 50;
         CurSkillCool = SkillCool;
@@ -141,7 +144,6 @@ public class BossCtrl : UnitCtrl
             randArr[i] = list[a];
             list.RemoveAt(a);
         }
-
         return randArr;
     }
 

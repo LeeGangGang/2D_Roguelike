@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ConfigBoxCtrl : MonoBehaviour
 {
-    public GameObject ConfigBox;
-
     public Button SaveBtn;
     public Button CloseBtn;
 
@@ -21,8 +19,6 @@ public class ConfigBoxCtrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
-
         if (!ReferenceEquals(SaveBtn, null))
             SaveBtn.onClick.AddListener(Save);
         if (!ReferenceEquals(CloseBtn, null))
@@ -49,8 +45,6 @@ public class ConfigBoxCtrl : MonoBehaviour
             EffSlider.value = ConfigValue.EffSdVolume;
             EffSlider.onValueChanged.AddListener(EffSlider_ValueChanged);
         }
-
-        ConfigBox.SetActive(false);
     }
 
     public void Save()
@@ -65,8 +59,8 @@ public class ConfigBoxCtrl : MonoBehaviour
         ConfigValue.EffSdVolume = EffSlider.value;
         PlayerPrefs.SetFloat("SoundVolume_Eff", ConfigValue.EffSdVolume);
 
-        ConfigBox.SetActive(false);
         Time.timeScale = 1f;
+        Destroy(this.gameObject);
     }
 
     public void Close()
@@ -83,8 +77,8 @@ public class ConfigBoxCtrl : MonoBehaviour
         SoundManager.Inst.SoundOnOff_Eff(ConfigValue.UseEffSound == 1);
         SoundManager.Inst.SoundVolume_Eff(ConfigValue.EffSdVolume);
 
-        ConfigBox.SetActive(false);
         Time.timeScale = 1f;
+        Destroy(this.gameObject);
     }
 
     void UseBgmTog_ValueChanged(bool isOn)
