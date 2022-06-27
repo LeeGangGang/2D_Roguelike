@@ -46,13 +46,13 @@ public class FireBreathCtrl : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (IsFire && col.transform.CompareTag("Monster"))
+        if (IsFire && col.attachedRigidbody.transform.CompareTag("Monster"))
         {
             if (CurDelayTime <= 0f)
             {
                 float dmg = Random.Range(Damage - 1, Damage + 2);
                 bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-                col.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
+                col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                 CurDelayTime = DelayTime;
             }
         }

@@ -50,6 +50,9 @@ public class PlayerCtrl : UnitCtrl
     {
         PlayerInfo.Name = "Player";
 
+        PlayerInfo.MaxHp = 100000;
+        PlayerInfo.CurHp = 100000;
+
         Anim = this.GetComponentInChildren<Animator>();
         Rigid = this.GetComponent<Rigidbody2D>();
         InteractionObj.Clear();

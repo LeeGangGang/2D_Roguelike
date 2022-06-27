@@ -56,6 +56,7 @@
     <Compile Include="Assets\02.Script\DamageTxtCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\CameraCtrl.cs" />
     <Compile Include="Assets\02.Script\Projectile\EnergyBallCtrl.cs" />
+    <Compile Include="Assets\02.Script\ObjectCtrl\ChestCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Fire_MagicStaff.cs" />
     <Compile Include="Assets\02.Script\Projectile\FireFieldCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Energy_MagicStaff.cs" />
@@ -86,7 +87,6 @@
     <Compile Include="Assets\02.Script\Manager\ConfigBoxCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\CursorCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Weapon.cs" />
-    <Compile Include="Assets\02.Script\ObjectCtrl\ChestCtrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

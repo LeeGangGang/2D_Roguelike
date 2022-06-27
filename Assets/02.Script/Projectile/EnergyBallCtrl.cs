@@ -96,11 +96,11 @@ public class EnergyBallCtrl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.CompareTag("Monster"))
+        if (col.attachedRigidbody.transform.CompareTag("Monster"))
         {
             float dmg = Random.Range(Damage - 1, Damage + 2);
             bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-            col.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
+            col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
             Explode();
             Destroy(this.gameObject);
         }

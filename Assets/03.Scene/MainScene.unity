@@ -585,7 +585,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1535
+    m_Bits: 9727
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -751,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2311477003472851971, guid: ad03026b4eb567d4caf4c3604ba9b851, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4883219629394664861, guid: ad03026b4eb567d4caf4c3604ba9b851, type: 3}
       propertyPath: m_Layer
@@ -783,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5912607408524496231, guid: ad03026b4eb567d4caf4c3604ba9b851, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5912607408524496231, guid: ad03026b4eb567d4caf4c3604ba9b851, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1337,7 +1337,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 577
+    m_Bits: 13377
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: b906da472a3ebac44a43337012701630, type: 2}
   m_TargetDisplay: 0
@@ -1561,7 +1561,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 482594635395831622, guid: 56b42a8dd436b7c4887114468c354205, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 482594635395831622, guid: 56b42a8dd436b7c4887114468c354205, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1946,9 +1946,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongSword
       objectReference: {fileID: 0}
+    - target: {fileID: 3090663841240493771, guid: 61ef33371cf7f784189ac4798c9b49e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7204286781345633454, guid: 61ef33371cf7f784189ac4798c9b49e3, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7204286781345633454, guid: 61ef33371cf7f784189ac4798c9b49e3, type: 3}
       propertyPath: m_LocalPosition.x

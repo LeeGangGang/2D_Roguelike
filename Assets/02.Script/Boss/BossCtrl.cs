@@ -7,6 +7,7 @@ public class BossCtrl : UnitCtrl
 {
     public UnitData UnitData;
     private Transform TargetPlayerTr;
+    private Rigidbody2D Rigid;
 
     private float CurAttCool;
     private float CurSkillCool = 10f;
@@ -26,6 +27,7 @@ public class BossCtrl : UnitCtrl
     public Text CurHpTxt;
 
     int MoveUpDown = 0; // 0 : y Dist == 0, 1 : y Dist > 0, 2 : y Dist < 0
+    bool EndLanding = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,7 @@ public class BossCtrl : UnitCtrl
         MonInfo.Init(UnitData);
 
         TargetPlayerTr = GameObject.Find("Player").transform;
+        Rigid = this.GetComponent<Rigidbody2D>();
 
         MyAIPathFinder = this.GetComponent<AIPathFinder>();
         ScaleX = this.transform.localScale.x;
@@ -77,7 +80,8 @@ public class BossCtrl : UnitCtrl
         float distX = Mathf.Abs(this.transform.position.x - TargetPlayerTr.position.x);
         float distY = Mathf.Abs(this.transform.position.y - TargetPlayerTr.position.y);
 
-        if (distX < attDistX && distY < attDistY && CurAttCool <= 0f && MoveUpDown == 0)
+        bool endLanding = EndLanding && Rigid.velocity.y == 0;
+        if (distX < attDistX && distY < attDistY && CurAttCool <= 0f && endLanding)
         {
             Boss_LR(TargetPlayerTr.position.x);
             CurState = AnimState.Attack;
@@ -154,12 +158,15 @@ public class BossCtrl : UnitCtrl
 
         if (MoveUpDown != 0)
         {
-            this.transform.position = Vector3.Slerp(this.transform.position, MoveNextPos, 0.05f);
+            if (MoveUpDown == 1)
+                Rigid.velocity = new Vector2(Rigid.velocity.x, 0f);
+
+            this.transform.position = Vector3.Slerp(this.transform.position, MoveNextPos, 0.08f);
             CurState = AnimState.Idle;
         }
         else
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, MoveNextPos, 0.02f);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, MoveNextPos, 0.04f);
             CurState = AnimState.Walk;
         }
 
@@ -198,5 +205,17 @@ public class BossCtrl : UnitCtrl
     {
         CurHpImg.fillAmount = (float)unit.CurHp / unit.MaxHp;
         CurHpTxt.text = string.Format("{0} / {1}", unit.CurHp, unit.MaxHp);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground") && col.contacts[0].normal.y > 0.5f)
+            EndLanding = true;
+    }
+
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground"))
+            EndLanding = false;
     }
 }

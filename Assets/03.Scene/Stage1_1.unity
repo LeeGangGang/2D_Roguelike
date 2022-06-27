@@ -10578,7 +10578,7 @@ GameObject:
   - component: {fileID: 1304423088}
   - component: {fileID: 1304423087}
   - component: {fileID: 1304423086}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Side_Tilemap
   m_TagString: Map
   m_Icon: {fileID: 0}

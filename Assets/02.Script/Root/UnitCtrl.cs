@@ -121,9 +121,12 @@ public class UnitCtrl : MonoBehaviour
             hudText.GetComponent<DamageTxtCtrl>().IsCritical = isCritical;
         }
 
-        int knockbackX = attPos.x > this.transform.position.x ? 2 : -2;
-        Vector2 knockback = new Vector2(knockbackX, 2);
-        this.GetComponent<Rigidbody2D>().velocity = knockback;
+        if (unit.Name != "Bringer of death")
+        {
+            int knockbackX = attPos.x > this.transform.position.x ? 2 : -2;
+            Vector2 knockback = new Vector2(knockbackX, 2);
+            this.GetComponent<Rigidbody2D>().velocity = knockback;
+        }
 
         if (unit.CurHp <= 0)
             CurState = AnimState.Die;

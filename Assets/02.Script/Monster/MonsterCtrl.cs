@@ -29,7 +29,7 @@ public class MonsterCtrl : UnitCtrl
 
         Rigid = this.GetComponent<Rigidbody2D>();
 
-        Collider2D bodyCol = this.GetComponent<Collider2D>();
+        Collider2D bodyCol = this.transform.Find("HitBox").GetComponent<Collider2D>();
         MoveLimitX = bodyCol.bounds.size.x / 2f + bodyCol.offset.x;
         MoveLimitY = bodyCol.bounds.size.y / 2f + bodyCol.offset.y;
 
@@ -109,13 +109,13 @@ public class MonsterCtrl : UnitCtrl
 
         CurState = AnimState.Walk;
 
-        // º® ¹ÛÀ¸·Î ¸ø³ª°¡µµ·Ï
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float dir = nextMove > 0 ? MoveLimitX : -MoveLimitX;
         Vector2 frontVec = new Vector2(Rigid.position.x + dir, Rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
         RaycastHit2D raycast = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
 
-        // Å½ÁöµÈ ¿ÀºêÁ§Æ®°¡ null : ±× ¾Õ¿¡ ÁöÇüÀÌ ¾øÀ½
+        // Å½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ null : ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (ReferenceEquals(raycast.collider, null))
         {
             Rigid.velocity = Vector2.zero;

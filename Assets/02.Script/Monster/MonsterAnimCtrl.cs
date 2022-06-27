@@ -95,7 +95,7 @@ public class MonsterAnimCtrl : MonoBehaviour
                     {
                         float dmg = Random.Range(MonCtrl.unit.Attack - 1, MonCtrl.unit.Attack + 2);
                         bool isCritical = Random.Range(0f, 100f) <= MonCtrl.unit.Critical_Per;
-                        col.transform.root.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
+                        col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                         
                         takeDamage = true;
                         break;
