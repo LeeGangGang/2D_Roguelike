@@ -20,11 +20,13 @@ public class Sword : Weapon
 
     public override void Attack()
     {
+        SoundManager.Inst.PlayEffSound("Sword1", 0.5f);
         Damage = Info.Attack_Dmg;
     }
 
     public override void Skill()
     {
+        SoundManager.Inst.PlayEffSound("Sword2", 0.5f);
         Damage = Info.Skill_Dmg;
     }
 }

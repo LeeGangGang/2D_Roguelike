@@ -7,7 +7,9 @@ public class FollowArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Inst.PlayerCtrl.IsSkill || GameManager.Inst.PlayerCtrl.IsAttack)
+        if (GameManager.Inst.PlayerCtrl.IsSkill ||
+            GameManager.Inst.PlayerCtrl.IsAttack ||
+            GameManager.Inst.PlayerCtrl.CurState == AnimState.Die)
             return;
 
         Vector2 msPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -7,6 +7,7 @@ TagManager:
   - Monster
   - Ground
   - Map
+  - Chest
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Ground
   - Projectile
   - Player
-  - MiniMap
-  - 
+  - InteractionRange
+  - InteractionObj
   - 
   - 
   - 

@@ -43,7 +43,7 @@ public class PlayerCtrl : UnitCtrl
     [HideInInspector] public Animator Anim;
     [HideInInspector] public Rigidbody2D Rigid;
 
-    public Interaction InteractionObj;
+    public List<Interaction> InteractionObj = new List<Interaction>();
 
     // Start is called before the first frame update
     void Awake()
@@ -52,6 +52,7 @@ public class PlayerCtrl : UnitCtrl
 
         Anim = this.GetComponentInChildren<Animator>();
         Rigid = this.GetComponent<Rigidbody2D>();
+        InteractionObj.Clear();
 
         for (int i = 0; i < 2; i++)
         {
@@ -67,6 +68,9 @@ public class PlayerCtrl : UnitCtrl
 
     void Update()
     {
+        if (CurState == AnimState.Die)
+            return;
+
         h = Input.GetAxis("Horizontal");
 
         if (h != 0.0f && IsSkill == false)
@@ -126,8 +130,11 @@ public class PlayerCtrl : UnitCtrl
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            if (!ReferenceEquals(InteractionObj, null))
-                InteractionObj.InteractionFunc();
+            if (InteractionObj.Count > 0)
+            {
+                foreach (Interaction obj in InteractionObj)
+                    obj.InteractionFunc();
+            }
         }
     }
 

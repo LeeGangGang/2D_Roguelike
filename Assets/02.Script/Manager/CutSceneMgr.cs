@@ -30,7 +30,7 @@ public class CutSceneMgr : MonoBehaviour
 
     public void Play()
     {
-        SoundManager.Inst.PlayBGM("Stage1_Boss");
+        SoundManager.Inst.PlayBGM("BGM/Stage1_Boss");
 
         PD.Play();
     }

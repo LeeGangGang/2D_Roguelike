@@ -26,6 +26,10 @@ public class FireFieldCtrl : MonoBehaviour
                 CurDelayTime -= Time.deltaTime;
         }
     }
+    void SoundOn()
+    {
+        SoundManager.Inst.PlayEffSound("FireField");
+    }
 
     void FireOn()
     {
@@ -46,7 +50,7 @@ public class FireFieldCtrl : MonoBehaviour
             {
                 float dmg = Random.Range(Damage - 1, Damage + 2);
                 bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-                col.GetComponent<UnitCtrl>().TakeDamage(dmg, isCritical);
+                col.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                 CurDelayTime = DelayTime;
             }
         }

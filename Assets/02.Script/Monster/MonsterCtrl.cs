@@ -49,6 +49,8 @@ public class MonsterCtrl : UnitCtrl
                 colliders[i].enabled = false;
 
             Rigid.velocity = new Vector2(0, 0);
+            Rigid.simulated = false;
+
             Destroy(this.gameObject, 5f);
         }
         else

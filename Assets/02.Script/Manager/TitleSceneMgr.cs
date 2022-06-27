@@ -25,7 +25,7 @@ public class TitleSceneMgr : MonoBehaviour
         if (!ReferenceEquals(ConfigBtn, null))
             ConfigBtn.onClick.AddListener(OpenConfig);
 
-        SoundManager.Inst.PlayBGM("TitleBgm");
+        SoundManager.Inst.PlayBGM("BGM/TitleBgm");
     }
 
     // Update is called once per frame
@@ -41,6 +41,8 @@ public class TitleSceneMgr : MonoBehaviour
         SceneManager.LoadSceneAsync("FadeScene");
         SceneManager.LoadScene("MainScene");
         SceneManager.LoadScene("Stage1_1", LoadSceneMode.Additive);
+        
+        SoundManager.Inst.PlayBGM("BGM/Stage1");
     }
 
     void GameExit()

@@ -14,7 +14,7 @@ public class SwordAttackCtrl : MonoBehaviour
             {
                 float dmg = Random.Range(Weapon.Damage - 1, Weapon.Damage + 2);
                 bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-                col.GetComponent<UnitCtrl>().TakeDamage(dmg, isCritical);
+                col.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
             }
         }
     }

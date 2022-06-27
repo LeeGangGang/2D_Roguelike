@@ -123,7 +123,7 @@ public class SoundManager : MonoBehaviour
         AudioSrc.PlayOneShot(AudioClipList[fileName], volume * ConfigValue.BgmSdVolume);
     }
 
-    public void PlayEffSound(string fileName, float volume = 1f)
+    public void PlayEffSound(string fileName, float volume = 1f, bool isLoop = false)
     {
         if (!SoundOnOff)
             return;
@@ -134,7 +134,7 @@ public class SoundManager : MonoBehaviour
         if (!ReferenceEquals(AudioClipList[fileName], null) && !ReferenceEquals(SdSrcList[CurSdIdx], null))
         {
             SdSrcList[CurSdIdx].clip = AudioClipList[fileName];
-            SdSrcList[CurSdIdx].loop = false;
+            SdSrcList[CurSdIdx].loop = isLoop;
             SdSrcList[CurSdIdx].volume = volume;
             SdSrcList[CurSdIdx].Play();
 

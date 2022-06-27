@@ -11,6 +11,8 @@ public class FireBreathCtrl : MonoBehaviour
 
     bool IsFire = false;
 
+    AudioSource EffSound = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,11 @@ public class FireBreathCtrl : MonoBehaviour
             if (CurDelayTime > 0)
                 CurDelayTime -= Time.deltaTime;
         }
+    }
+
+    void SoundOn()
+    {
+        SoundManager.Inst.PlayEffSound("FireBreath");
     }
 
     void FireOn()
@@ -45,7 +52,7 @@ public class FireBreathCtrl : MonoBehaviour
             {
                 float dmg = Random.Range(Damage - 1, Damage + 2);
                 bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-                col.GetComponent<UnitCtrl>().TakeDamage(dmg, isCritical);
+                col.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                 CurDelayTime = DelayTime;
             }
         }

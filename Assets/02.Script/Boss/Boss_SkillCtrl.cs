@@ -21,11 +21,7 @@ public class Boss_SkillCtrl : MonoBehaviour
             {
                 float dmg = Random.Range(Damage - 2, Damage + 2);
                 bool isCritical = Random.Range(0f, 100f) <= 30f;
-                col.transform.GetComponent<UnitCtrl>().TakeDamage(dmg, isCritical);
-                int knockbackX = col.transform.position.x > this.transform.position.x ? 2 : -2;
-                Vector2 knockback = new Vector2(knockbackX, 2);
-                col.transform.GetComponent<Rigidbody2D>().velocity = knockback;
-
+                col.transform.root.GetComponent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                 TakeDamage = true;
             }
         }

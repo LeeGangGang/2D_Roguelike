@@ -100,7 +100,7 @@ public class UnitCtrl : MonoBehaviour
         return Dmg;
     }
 
-    public virtual void TakeDamage(float dmg, bool isCritical)
+    public virtual void TakeDamage(Vector2 attPos, float dmg, bool isCritical)
     {
         if (unit.CurHp <= 0)
             return;
@@ -120,6 +120,10 @@ public class UnitCtrl : MonoBehaviour
             hudText.GetComponent<DamageTxtCtrl>().DamageVal = Dmg;
             hudText.GetComponent<DamageTxtCtrl>().IsCritical = isCritical;
         }
+
+        int knockbackX = attPos.x > this.transform.position.x ? 2 : -2;
+        Vector2 knockback = new Vector2(knockbackX, 2);
+        this.GetComponent<Rigidbody2D>().velocity = knockback;
 
         if (unit.CurHp <= 0)
             CurState = AnimState.Die;
