@@ -283,6 +283,7 @@ MonoBehaviour:
   DmgTxt: {fileID: 4034242959376140134, guid: 421c4203542773e4aabaed3181a03205, type: 3}
   UnitData: {fileID: 11400000, guid: 3631da18c5775274992a287ffc6e792b, type: 2}
   IsFly: 0
+  CanvasTr: {fileID: 3143864244836348675}
   CurHpImg: {fileID: 9206170207241819740}
 --- !u!50 &3804797072545330060
 Rigidbody2D:

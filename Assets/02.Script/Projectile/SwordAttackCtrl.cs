@@ -8,7 +8,8 @@ public class SwordAttackCtrl : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (GameManager.Inst.PlayerCtrl.IsAttack || GameManager.Inst.PlayerCtrl.IsSkill)
+        PlayerCtrl player = this.transform.root.GetComponent<PlayerCtrl>();
+        if (player.IsAttack || player.IsSkill)
         {
             if (col.attachedRigidbody.transform.CompareTag("Monster"))
             {

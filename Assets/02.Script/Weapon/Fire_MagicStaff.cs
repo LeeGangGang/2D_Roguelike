@@ -12,8 +12,8 @@ public class Fire_MagicStaff : Weapon
     // Start is called before the first frame update
     void Awake()
     {
-        Info.Attack_Dmg = 5f;
-        Info.Skill_Dmg = 2f;
+        Info.Attack_Dmg = 10f;
+        Info.Skill_Dmg = 5f;
         Info.Attack_NeedMp = 5;
         Info.Skill_NeedMp = 10;
         Info.Img = IconImg.GetComponent<SpriteRenderer>().sprite;

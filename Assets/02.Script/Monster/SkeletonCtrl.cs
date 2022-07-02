@@ -6,7 +6,7 @@ public class SkeletonCtrl : MonsterCtrl
 {
     private float Shield_Per = 10f;
 
-    public override void TakeDamage(Vector2 attPos, float dmg, bool isCritical)
+    public override void TakeDamage(Vector2 attPos, float dmg, bool isCritical, bool isStun)
     {
         if (unit.CurMp >= 10)
         {

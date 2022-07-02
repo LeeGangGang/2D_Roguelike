@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public PlayerCtrl PlayerCtrl;
 
     public GameObject MiniMap;
+    public Transform CanvasTr;
+
     [Header("Player Info")]
     public GameObject StatePanel;
     public Image CurHpImg;
@@ -23,32 +25,17 @@ public class GameManager : MonoBehaviour
     private Vector3 CurWeaponPos;
     private Vector3 SubWeaponPos;
 
+    [Header("Config")]
+    public GameObject ConfigBoxPrefab;
+    private GameObject ConfigBox = null;
+
     private string LoadScName;
-
-    private static GameManager Instance;
-    public static GameManager Inst
-    {
-        get
-        {
-            if (!Instance)
-                Instance = FindObjectOfType(typeof(GameManager)) as GameManager;
-
-            return Instance;
-        }
-    }
-    private void Awake()
-    {
-        if (ReferenceEquals(Instance, null))
-            Instance = this;
-        else if (!ReferenceEquals(Instance, this))
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        ConfigBox = null;
+
         PlayerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
         CurWeaponPos = WeaponTr[1].position;
         SubWeaponPos = WeaponTr[0].position;
@@ -67,6 +54,8 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
             SwitchWeapon();
+        if (Input.GetKeyDown(KeyCode.Escape))
+            OpenConfig();
     }
 
     void StateUpdate()
@@ -156,5 +145,19 @@ public class GameManager : MonoBehaviour
         MiniMap.SetActive(isShow);
         StatePanel.SetActive(isShow);
         WeaponPanel.SetActive(isShow);
+    }
+
+    void OpenConfig()
+    {
+        if (ConfigBox == null)
+        {
+            SoundManager.Inst.PlayUISound("Button1", 2f);
+            ConfigBox = Instantiate(ConfigBoxPrefab, CanvasTr);
+        }
+        else
+        {
+            ConfigBox.GetComponent<ConfigBoxCtrl>().Close();
+            ConfigBox = null;
+        }
     }
 }

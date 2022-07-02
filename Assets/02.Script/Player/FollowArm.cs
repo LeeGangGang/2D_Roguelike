@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class FollowArm : MonoBehaviour
 {
+    public PlayerCtrl Player;
+
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Inst.PlayerCtrl.IsSkill ||
-            GameManager.Inst.PlayerCtrl.IsAttack ||
-            GameManager.Inst.PlayerCtrl.CurState == AnimState.Die)
+        if (Player.IsSkill ||
+            Player.IsAttack ||
+            Player.CurState == AnimState.Die)
             return;
 
         Vector2 msPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

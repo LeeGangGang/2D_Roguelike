@@ -9,7 +9,7 @@ public class FadeSceneMgr : MonoBehaviour
     public CanvasGroup FadeCanvasGroup;
 
     // Fade In 처리 시간
-    [Range(0.5f, 2.0f)]
+    [Range(0.5f, 1.0f)]
     public float FadeDuration = 1.0f;
 
     // Start is called before the first frame update
@@ -22,6 +22,12 @@ public class FadeSceneMgr : MonoBehaviour
         StartCoroutine(Fade(0.0f));
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+            StartCoroutine(Fade(0.0f));
+    }
+
     // Fade In/Out 시키는 함수
     IEnumerator Fade(float finalAlpha)
     {
@@ -31,7 +37,7 @@ public class FadeSceneMgr : MonoBehaviour
 
         while (!Mathf.Approximately(FadeCanvasGroup.alpha, finalAlpha))
         {
-            FadeCanvasGroup.alpha = Mathf.MoveTowards(FadeCanvasGroup.alpha, finalAlpha, fadeSpeed * Time.unscaledTime);
+            FadeCanvasGroup.alpha = Mathf.MoveTowards(FadeCanvasGroup.alpha, finalAlpha, fadeSpeed * Time.fixedDeltaTime);
             yield return null;
         }
 

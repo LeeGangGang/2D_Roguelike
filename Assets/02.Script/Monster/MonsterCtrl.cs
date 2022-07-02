@@ -16,7 +16,9 @@ public class MonsterCtrl : UnitCtrl
 
     private Rigidbody2D Rigid;
 
+    public Transform CanvasTr;
     public Image CurHpImg;
+    public bool IsDying = false; // CurState == Die¸¦ ÇÑ¹ø ÅÀÀ»¶§ true
 
     void Awake()
     {
@@ -44,14 +46,11 @@ public class MonsterCtrl : UnitCtrl
 
         if (CurState == AnimState.Die)
         {
-            Collider2D[] colliders = GetComponents<Collider2D>();
-            for (int i = 0; i < colliders.Length; i++)
-                colliders[i].enabled = false;
-
-            Rigid.velocity = new Vector2(0, 0);
-            Rigid.simulated = false;
-
-            Destroy(this.gameObject, 5f);
+            if (IsDying == false)
+            {
+                IsDying = true;
+                Die();
+            }
         }
         else
         {
@@ -109,13 +108,10 @@ public class MonsterCtrl : UnitCtrl
 
         CurState = AnimState.Walk;
 
-        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float dir = nextMove > 0 ? MoveLimitX : -MoveLimitX;
         Vector2 frontVec = new Vector2(Rigid.position.x + dir, Rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
         RaycastHit2D raycast = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-
-        // Å½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ null : ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (ReferenceEquals(raycast.collider, null))
         {
             Rigid.velocity = Vector2.zero;
@@ -191,8 +187,43 @@ public class MonsterCtrl : UnitCtrl
     void Update_HpBar()
     {
         if (unit.CurHp <= 0)
-            CurHpImg.gameObject.SetActive(false);
+            CanvasTr.gameObject.SetActive(false);
         else
             CurHpImg.fillAmount = (float)unit.CurHp / unit.MaxHp;
+    }
+
+    void Die()
+    {
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        for (int i = 0; i < colliders.Length; i++)
+            colliders[i].enabled = false;
+
+        Rigid.velocity = new Vector2(0, 0);
+        Rigid.simulated = false;
+
+        int dropProbability = Random.Range(0, 101);
+        StartCoroutine(DropItem(dropProbability));
+    }
+
+    IEnumerator DropItem(int dropProbability)
+    {
+        yield return new WaitForSeconds(1);
+        
+        if (dropProbability >= 60)
+        {
+            string chestType = "Wood";
+            if (dropProbability >= 95)
+                chestType = "Gold";
+            else if (dropProbability >= 90)
+                chestType = "Silver";
+            else if (dropProbability >= 80)
+                chestType = "Iron";
+
+            GameObject chest = (GameObject)Instantiate(Resources.Load("Chest/" + chestType));
+            chest.transform.position = this.transform.position;
+        }
+
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
     }
 }

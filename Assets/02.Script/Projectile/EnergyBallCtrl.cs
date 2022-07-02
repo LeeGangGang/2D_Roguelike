@@ -7,7 +7,7 @@ public class EnergyBallCtrl : MonoBehaviour
     Vector3 Dir = Vector3.right;
     float MoveSpeed = 15.0f;
 
-    [HideInInspector] public float Damage = 20.0f;
+    [HideInInspector] public float Damage;
 
     //유도탄 변수
     bool IsTaget = false;
@@ -18,7 +18,7 @@ public class EnergyBallCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!ReferenceEquals(TargetObj, null))
+        if (TargetObj != null)
             BulletHoming();
         else
             transform.Translate(Vector2.right * Time.deltaTime * MoveSpeed);
@@ -50,15 +50,6 @@ public class EnergyBallCtrl : MonoBehaviour
         Dir.z = 0f;
         Dir.Normalize();
 
-        //1번 방법 : 즉시 적을 향해 회전 이동하는 방법
-        // https://gnaseel.tistory.com/17
-        //float angle = Mathf.Atan2(m_DesiredDir.y, m_DesiredDir.x) * Mathf.Rad2Deg;
-        //Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
-        //transform.rotation = angleAxis;
-        //m_DirTgVec = transform.right;
-        //transform.Translate(Vector3.right * m_MoveSpeed * Time.deltaTime);
-
-        // 각도를 보정해서 적을 추적하는 방법
         float rotSpeed = 5;
         float value = Vector3.Cross(Dir, transform.right).z;
         transform.Translate(Vector3.right * MoveSpeed * Time.deltaTime);
@@ -67,29 +58,30 @@ public class EnergyBallCtrl : MonoBehaviour
 
     void FindEnemy()
     {
-        GameObject[] a_EnemyList = GameObject.FindGameObjectsWithTag("Monster");
-        if (a_EnemyList.Length <= 0)
+        GameObject[] enemyList = GameObject.FindGameObjectsWithTag("Monster");
+        if (enemyList.Length <= 0)
             return;
 
-        GameObject a_Find_Mon = null;
-        float a_CacDist = 0.0f;
-        Vector2 a_CacVec = Vector2.zero;
-        for (int i = 0; i < a_EnemyList.Length; ++i)
+        GameObject find_Mon = null;
+        float dist = 0f;
+        Vector2 vec = Vector2.zero;
+        for (int i = 0; i < enemyList.Length; ++i)
         {
-            if (a_EnemyList[i].GetComponent<UnitCtrl>().CurState == AnimState.Die)
+            if (enemyList[i].GetComponent<UnitCtrl>().CurState == AnimState.Die)
                 continue;
 
-            a_CacVec = a_EnemyList[i].transform.position - transform.position;
-            a_CacDist = a_CacVec.magnitude;
-
-            if (10.0f < a_CacDist)
+            vec = enemyList[i].transform.position - transform.position;
+            if (10f < vec.magnitude)
                 continue;
 
-            a_Find_Mon = a_EnemyList[i].gameObject;
-            break;
+            if (dist > vec.magnitude || ReferenceEquals(find_Mon, null))
+            {
+                dist = vec.magnitude;
+                find_Mon = enemyList[i].gameObject;
+            }
         }
 
-        TargetObj = a_Find_Mon;
+        TargetObj = find_Mon;
         if (!ReferenceEquals(TargetObj, null))
             IsTaget = true;
     }

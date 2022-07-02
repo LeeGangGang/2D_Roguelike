@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4702633153129759045}
   - component: {fileID: 571268401662394726}
   m_Layer: 3
-  m_Name: Fire_MagicStaff
+  m_Name: Fire Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

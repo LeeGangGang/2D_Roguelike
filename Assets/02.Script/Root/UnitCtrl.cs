@@ -47,6 +47,7 @@ public enum AnimState
     Attack,
     Skill,
     Hit,
+    Stun,
     Die
 }
 
@@ -100,7 +101,7 @@ public class UnitCtrl : MonoBehaviour
         return Dmg;
     }
 
-    public virtual void TakeDamage(Vector2 attPos, float dmg, bool isCritical)
+    public virtual void TakeDamage(Vector2 attPos, float dmg, bool isCritical, bool isStun = false)
     {
         if (unit.CurHp <= 0)
             return;
@@ -111,6 +112,8 @@ public class UnitCtrl : MonoBehaviour
 
         Dmg = isCritical ? Dmg * 2 : Dmg;
         unit.CurHp -= Dmg;
+        if (unit.CurHp < 0)
+            unit.CurHp = 0;
 
         if (!ReferenceEquals(DmgTxt, null))
         {
@@ -131,9 +134,11 @@ public class UnitCtrl : MonoBehaviour
         if (unit.CurHp <= 0)
             CurState = AnimState.Die;
         else
-            CurState = AnimState.Hit;
-
-        if (unit.Name == "Player")
-            Camera.main.GetComponent<CameraCtrl>().Hurt();
+        {
+            if (isStun)
+                CurState = AnimState.Stun;
+            else
+                CurState = AnimState.Hit;
+        }
     }
 }

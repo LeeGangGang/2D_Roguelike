@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1755214644681904956}
   - component: {fileID: 1755214644681904959}
   m_Layer: 0
-  m_Name: PF Village Props - Gravestone B
+  m_Name: GraveStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

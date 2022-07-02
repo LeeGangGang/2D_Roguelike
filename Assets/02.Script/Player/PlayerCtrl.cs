@@ -30,6 +30,8 @@ public class PlayerCtrl : UnitCtrl
         }
     }
 
+    private float NaturalCureMpTimer;
+
     public bool IsAttack = false;
     public bool IsSkill = false;
     private bool Jump = false;
@@ -50,18 +52,17 @@ public class PlayerCtrl : UnitCtrl
     {
         PlayerInfo.Name = "Player";
 
-        PlayerInfo.MaxHp = 100000;
-        PlayerInfo.CurHp = 100000;
-
         Anim = this.GetComponentInChildren<Animator>();
         Rigid = this.GetComponent<Rigidbody2D>();
         InteractionObj.Clear();
 
         for (int i = 0; i < 2; i++)
         {
-            if (ArrWeaponPos[i].transform.childCount != 0)
+            if (!ReferenceEquals(PlayerSettingCtrl.SelectedWeapons[i], null))
             {
-                ArrWeaponCtrl[i] = ArrWeaponPos[i].transform.GetChild(0).GetComponent<Weapon>();
+                string resPath = "Weapons/" + PlayerSettingCtrl.SelectedWeapons[i].Name;
+                GameObject weapon = (GameObject)Instantiate(Resources.Load(resPath), ArrWeaponPos[i].transform);
+                ArrWeaponCtrl[i] = weapon.GetComponent<Weapon>();
             }
         }
         ArrWeaponPos[1].SetActive(false);
@@ -71,11 +72,31 @@ public class PlayerCtrl : UnitCtrl
 
     void Update()
     {
-        if (CurState == AnimState.Die)
+        if (CurState == AnimState.Die || Time.timeScale == 0f)
             return;
 
-        h = Input.GetAxis("Horizontal");
+        NaturalCure();
+        MoveUpdate();
+        ActionUpdate();
 
+        if (Input.GetKeyDown(KeyCode.C))
+            Anim.SetBool("Stun", true);
+        if (Input.GetKeyDown(KeyCode.V))
+            Anim.SetBool("Stun", false);
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (InteractionObj.Count > 0)
+            {
+                foreach (Interaction obj in InteractionObj)
+                    obj.InteractionFunc();
+            }
+        }
+    }
+
+    void MoveUpdate()
+    {
+        h = Input.GetAxis("Horizontal");
         if (h != 0.0f && IsSkill == false)
         {
             if (h > 0.0f)
@@ -99,7 +120,7 @@ public class PlayerCtrl : UnitCtrl
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-             if (JumpCnt > 0 && IsSkill == false)
+            if (JumpCnt > 0 && IsSkill == false)
             {
                 Jump = true;
                 JumpCnt--;
@@ -108,37 +129,66 @@ public class PlayerCtrl : UnitCtrl
                 Anim.SetInteger(AnimTrigger, 2);
             }
         }
+    }
 
+    void ActionUpdate()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            Anim.SetTrigger("Attack");
-            IsAttack = true;
+            if (unit.CurMp >= WeaponCtrl.Info.Attack_NeedMp)
+            {
+                Anim.SetTrigger("Attack");
+                IsAttack = true;
+                unit.CurMp -= WeaponCtrl.Info.Attack_NeedMp;
+            }
         }
         if (Input.GetMouseButtonDown(1))
         {
             if (!Jump)
             {
-                Anim.SetTrigger("Skill");
-                IsSkill = true;
+                if (unit.CurMp >= WeaponCtrl.Info.Skill_NeedMp)
+                {
+                    Anim.SetTrigger("Skill");
+                    IsSkill = true;
+                    unit.CurMp -= WeaponCtrl.Info.Skill_NeedMp;
+                }
             }
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.C))
-            Anim.SetBool("Stun", true);
-        if (Input.GetKeyDown(KeyCode.V))
-            Anim.SetBool("Stun", false);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Anim.SetTrigger("Die");
-
-        if (Input.GetKeyDown(KeyCode.G))
+    void NaturalCure()
+    {
+        if (unit.MaxMp > unit.CurMp)
         {
-            if (InteractionObj.Count > 0)
+            NaturalCureMpTimer += Time.deltaTime;
+            if (NaturalCureMpTimer >= 0.5f)
             {
-                foreach (Interaction obj in InteractionObj)
-                    obj.InteractionFunc();
+                unit.CurMp += 1;
+                if (unit.CurMp > unit.MaxMp)
+                    unit.CurMp = unit.MaxMp;
+                NaturalCureMpTimer = 0f;
             }
         }
+    }
+
+    public override void TakeDamage(Vector2 attPos, float dmg, bool isCritical, bool isStun = false)
+    {
+        base.TakeDamage(attPos, dmg, isCritical, isStun);
+        Camera.main.GetComponent<CameraCtrl>().Hurt();
+
+        if (CurState == AnimState.Die)
+            Anim.SetTrigger("Die");
+        else if (CurState == AnimState.Stun)
+        {
+            Anim.SetBool("Stun", true);
+            Invoke("StunOff", 0.5f);
+        }
+    }
+
+    private void StunOff()
+    {
+        Anim.SetBool("Stun", false);
+        CurState = AnimState.Null;
     }
 
     void OnCollisionEnter2D(Collision2D col)

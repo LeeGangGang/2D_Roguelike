@@ -25,7 +25,7 @@ public class CutSceneMgr : MonoBehaviour
                 PD.SetGenericBinding(track, Cam);
         }
 
-        GameManager.Inst.PlayerUIOnOff(false);
+        GameObject.Find("GameManager").GetComponent<GameManager>().PlayerUIOnOff(false);
     }
 
     public void Play()
@@ -38,7 +38,7 @@ public class CutSceneMgr : MonoBehaviour
     public void ReceiveEndSignal()
     {
         Time.timeScale = 1f;
-        GameManager.Inst.PlayerUIOnOff(true);
+        GameObject.Find("GameManager").GetComponent<GameManager>().PlayerUIOnOff(true);
         Camera.main.orthographicSize = 5f;
     }
 
@@ -54,7 +54,7 @@ public class CutSceneMgr : MonoBehaviour
     {
         for (int i = 0; i < infoTxt.Length; i++)
         {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSecondsRealtime(0.05f);
             InfoText.text += infoTxt[i];
         }
     }

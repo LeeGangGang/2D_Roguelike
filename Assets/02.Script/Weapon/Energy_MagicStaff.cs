@@ -29,6 +29,7 @@ public class Energy_MagicStaff : Weapon
 
         GameObject a_refEnergyBall = GameObject.Instantiate(EnergyBall, pos, rot);
         a_refEnergyBall.GetComponent<EnergyBallCtrl>().EnergyBallSpawn(dir, 15f, 20f, false);
+        a_refEnergyBall.GetComponent<EnergyBallCtrl>().Damage = Info.Attack_Dmg;
 
         SoundManager.Inst.PlayEffSound("EnergyBall_Shot");
     }
@@ -51,6 +52,7 @@ public class Energy_MagicStaff : Weapon
             Quaternion rot = Quaternion.AngleAxis(a_angle, Vector3.forward);
             GameObject a_refEnergyBall = GameObject.Instantiate(EnergyBall, pos, rot);
             a_refEnergyBall.GetComponent<EnergyBallCtrl>().EnergyBallSpawn(dir, 15f, 20f, true);
+            a_refEnergyBall.GetComponent<EnergyBallCtrl>().Damage = Info.Skill_Dmg;
 
             SoundManager.Inst.PlayEffSound("EnergyBall_Shot");
         }

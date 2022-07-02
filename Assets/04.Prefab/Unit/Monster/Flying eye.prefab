@@ -128,6 +128,7 @@ MonoBehaviour:
   UnitData: {fileID: 11400000, guid: ef8f1f7c29af5c446b46c99d9f46086b, type: 2}
   IsFly: 1
   CurHpImg: {fileID: 4675632134658025010}
+  CanvasTr: {fileID: 6703854116845841397}
 --- !u!50 &2671740854089540221
 Rigidbody2D:
   serializedVersion: 4

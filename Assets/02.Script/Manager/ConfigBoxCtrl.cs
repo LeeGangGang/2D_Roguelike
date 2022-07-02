@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ConfigBoxCtrl : MonoBehaviour
 {
+    public Button LobbyBtn;
     public Button SaveBtn;
     public Button CloseBtn;
 
@@ -19,6 +21,10 @@ public class ConfigBoxCtrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0f;
+
+        if (!ReferenceEquals(LobbyBtn, null))
+            LobbyBtn.onClick.AddListener(GoLobby);
         if (!ReferenceEquals(SaveBtn, null))
             SaveBtn.onClick.AddListener(Save);
         if (!ReferenceEquals(CloseBtn, null))
@@ -45,6 +51,13 @@ public class ConfigBoxCtrl : MonoBehaviour
             EffSlider.value = ConfigValue.EffSdVolume;
             EffSlider.onValueChanged.AddListener(EffSlider_ValueChanged);
         }
+    }
+
+    private void GoLobby()
+    {
+        SceneManager.LoadSceneAsync("FadeScene");
+        SceneManager.LoadScene("TitleScene", LoadSceneMode.Additive);
+        Time.timeScale = 1f;
     }
 
     public void Save()

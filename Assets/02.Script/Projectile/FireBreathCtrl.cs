@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class FireBreathCtrl : MonoBehaviour
 {
-    public float Damage = 10f;
+    public float Damage;
 
     private float DelayTime = 0.2f;
     private float CurDelayTime;
 
     bool IsFire = false;
-
-    AudioSource EffSound = null;
 
     // Start is called before the first frame update
     void Start()

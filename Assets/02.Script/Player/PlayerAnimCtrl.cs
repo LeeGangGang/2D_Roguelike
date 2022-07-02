@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
+    public PlayerCtrl Player;
+
     void Attack()
     {
-        if (!ReferenceEquals(GameManager.Inst.PlayerCtrl.WeaponCtrl, null))
-            GameManager.Inst.PlayerCtrl.WeaponCtrl.Attack();
+        Weapon weapon = Player.WeaponCtrl;
+        if (!ReferenceEquals(weapon, null))
+            weapon.Attack();
     }
 
     void Skill()
     {
-        if (!ReferenceEquals(GameManager.Inst.PlayerCtrl.WeaponCtrl, null))
-            GameManager.Inst.PlayerCtrl.WeaponCtrl.Skill();
+        Weapon weapon = Player.WeaponCtrl;
+        if (!ReferenceEquals(weapon, null))
+            weapon.Skill();
     }
 
     void AttackEnd()
     {
-        GameManager.Inst.PlayerCtrl.IsAttack = false;
+        Player.IsAttack = false;
     }
 
     void SkillEnd()
     {
-        GameManager.Inst.PlayerCtrl.IsSkill = false;
+        Player.IsSkill = false;
     }
 }
