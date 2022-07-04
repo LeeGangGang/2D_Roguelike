@@ -63,6 +63,7 @@ public class PlayerCtrl : UnitCtrl
                 string resPath = "Weapons/" + PlayerSettingCtrl.SelectedWeapons[i].Name;
                 GameObject weapon = (GameObject)Instantiate(Resources.Load(resPath), ArrWeaponPos[i].transform);
                 ArrWeaponCtrl[i] = weapon.GetComponent<Weapon>();
+                ArrWeaponCtrl[i].Info = PlayerSettingCtrl.SelectedWeapons[i];
             }
         }
         ArrWeaponPos[1].SetActive(false);
@@ -133,6 +134,9 @@ public class PlayerCtrl : UnitCtrl
 
     void ActionUpdate()
     {
+        if (ReferenceEquals(WeaponCtrl, null))
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (unit.CurMp >= WeaponCtrl.Info.Attack_NeedMp)

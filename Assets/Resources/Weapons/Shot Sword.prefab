@@ -44,7 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17301e4efc4d53344bab65675cc4d8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info:
+    Name: 
+    Attack_Dmg: 0
+    Skill_Dmg: 0
+    Critical_Per: 0
+    Defence: 0
+    Attack_NeedMp: 0
+    Skill_NeedMp: 0
+    Skill_Cool: 0
+    Idx: 0
+    Img: {fileID: 0}
   IconImg: {fileID: 482594636106970769}
+  Type: 0
   Damage: 0
 --- !u!1 &482594636106970769
 GameObject:
@@ -142,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a068e4c84017d3a429d41831147b6dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 482594635395831641}
+  WeaponInfo: {fileID: 482594635395831641}
 --- !u!61 &482594636106970770
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,21 +4,8 @@ using UnityEngine;
 
 public class Energy_MagicStaff : Weapon
 {
-    new WeaponInfo Info = new WeaponInfo();
-    public GameObject IconImg;
     public GameObject EnergyBall;
     public Transform ShotPos;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Info.Attack_Dmg = 20f;
-        Info.Skill_Dmg = 20f;
-        Info.Attack_NeedMp = 5;
-        Info.Skill_NeedMp = 20;
-        Info.Img = IconImg.GetComponent<SpriteRenderer>().sprite;
-        base.Init(Info);
-    }
 
     public override void Attack()
     {
@@ -28,8 +15,8 @@ public class Energy_MagicStaff : Weapon
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
 
         GameObject a_refEnergyBall = GameObject.Instantiate(EnergyBall, pos, rot);
-        a_refEnergyBall.GetComponent<EnergyBallCtrl>().EnergyBallSpawn(dir, 15f, 20f, false);
-        a_refEnergyBall.GetComponent<EnergyBallCtrl>().Damage = Info.Attack_Dmg;
+        a_refEnergyBall.GetComponent<EnergyBallCtrl>().EnergyBallSpawn(dir, false);
+        a_refEnergyBall.GetComponent<EnergyBallCtrl>().WeaponInfo = Info;
 
         SoundManager.Inst.PlayEffSound("EnergyBall_Shot");
     }
@@ -51,8 +38,8 @@ public class Energy_MagicStaff : Weapon
             float a_angle = angle + (15 * i);
             Quaternion rot = Quaternion.AngleAxis(a_angle, Vector3.forward);
             GameObject a_refEnergyBall = GameObject.Instantiate(EnergyBall, pos, rot);
-            a_refEnergyBall.GetComponent<EnergyBallCtrl>().EnergyBallSpawn(dir, 15f, 20f, true);
-            a_refEnergyBall.GetComponent<EnergyBallCtrl>().Damage = Info.Skill_Dmg;
+            a_refEnergyBall.GetComponent<EnergyBallCtrl>().EnergyBallSpawn(dir, true);
+            a_refEnergyBall.GetComponent<EnergyBallCtrl>().WeaponInfo = Info;
 
             SoundManager.Inst.PlayEffSound("EnergyBall_Shot");
         }

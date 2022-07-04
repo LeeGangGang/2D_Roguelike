@@ -6,17 +6,19 @@ using UnityEngine.UI;
 
 public class ConfigBoxCtrl : MonoBehaviour
 {
-    public Button LobbyBtn;
-    public Button SaveBtn;
-    public Button CloseBtn;
+    public bool EnableHomeBtn = true;
+
+    [SerializeField] private Button LobbyBtn;
+    [SerializeField] private Button SaveBtn;
+    [SerializeField] private Button CloseBtn;
 
     private bool IsBgmOn = true;
     private bool IsEffOn = true;
-    public Toggle UseBgmTog;
-    public Toggle UseEffTog;
+    [SerializeField] private Toggle UseBgmTog;
+    [SerializeField] private Toggle UseEffTog;
 
-    public Slider BgmSlider;
-    public Slider EffSlider;
+    [SerializeField] private Slider BgmSlider;
+    [SerializeField] private Slider EffSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,12 @@ public class ConfigBoxCtrl : MonoBehaviour
         Time.timeScale = 0f;
 
         if (!ReferenceEquals(LobbyBtn, null))
-            LobbyBtn.onClick.AddListener(GoLobby);
+        {
+            if (EnableHomeBtn)
+                LobbyBtn.onClick.AddListener(GoLobby);
+            else
+                LobbyBtn.gameObject.SetActive(false);
+        }
         if (!ReferenceEquals(SaveBtn, null))
             SaveBtn.onClick.AddListener(Save);
         if (!ReferenceEquals(CloseBtn, null))

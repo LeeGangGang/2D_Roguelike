@@ -9,11 +9,40 @@ public class WeaponDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, I
     public WeaponInfo Info;
 
     private GameObject Canvas;
-
     private Text NameTxt;
     private Text InfoTxt;
 
     bool IsMvItem = false; // true : 다른 곳으로 해당 무기 드래그 할때
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Canvas = GameObject.Find("Canvas");
+        NameTxt = GameObject.Find("WeaponNameText").GetComponent<Text>();
+        InfoTxt = GameObject.Find("WeaponInfoText").GetComponent<Text>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        NameTxt.text = Info.Name;
+        InfoTxt.text = string.Format(
+            "Attack Dmg : {0}\n" +
+            "Attack Mp : {1}\n" +
+            "Skill Dmg : {2}\n" +
+            "Skill Mp : {3}\n" +
+            "Skill Cool : {4}\n" +
+            "Critical : {5}%\n" +
+            "Defence : {6}",
+            Info.Attack_Dmg, Info.Attack_NeedMp, Info.Skill_Dmg,
+            Info.Skill_NeedMp, Info.Skill_Cool, Info.Critical_Per,
+            Info.Defence);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        NameTxt.text = string.Empty;
+        InfoTxt.text = string.Empty;
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -43,35 +72,5 @@ public class WeaponDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, I
                 this.GetComponent<Image>().raycastTarget = true;
             }
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Canvas = GameObject.Find("Canvas");
-        NameTxt = GameObject.Find("WeaponNameText").GetComponent<Text>();
-        InfoTxt = GameObject.Find("WeaponInfoText").GetComponent<Text>();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        NameTxt.text = Info.Name; 
-        InfoTxt.text = string.Format(
-            "Attack Dmg : {0}\n" +
-            "Attack Mp : {1}\n" +
-            "Skill Dmg : {2}\n" +
-            "Skill Mp : {3}\n" +
-            "Skill Cool : {4}\n" +
-            "Critical : {5}%\n" +
-            "Defence : {6}",
-            Info.Attack_Dmg, Info.Attack_NeedMp, Info.Skill_Dmg,
-            Info.Skill_NeedMp, Info.Skill_Cool, Info.Critical_Per,
-            Info.Defence);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        NameTxt.text = string.Empty;
-        InfoTxt.text = string.Empty;
     }
 }

@@ -26,11 +26,6 @@ public abstract class Weapon : MonoBehaviour
 {
     public WeaponInfo Info;
 
-    public void Init(WeaponInfo info)
-    {
-        Info = info;
-    }
-
     public abstract void Attack();
     public abstract void Skill();
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnergyBallCtrl : MonoBehaviour
 {
     Vector3 Dir = Vector3.right;
-    float MoveSpeed = 15.0f;
+    float MoveSpeed = 15f;
 
-    [HideInInspector] public float Damage;
+    [HideInInspector] public WeaponInfo WeaponInfo;
 
     //À¯µµÅº º¯¼ö
     bool IsTaget = false;
@@ -26,13 +26,10 @@ public class EnergyBallCtrl : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    public void EnergyBallSpawn(Vector3 dir, float mvSpeed = 15.0f, float damage = 20.0f, bool isHoming = false)
+    public void EnergyBallSpawn(Vector3 dir, bool isHoming = false)
     {
         Dir = dir;
         Dir.z = 0f;
-
-        MoveSpeed = mvSpeed;
-        Damage = damage;
 
         TargetObj = null;
 
@@ -90,9 +87,10 @@ public class EnergyBallCtrl : MonoBehaviour
     {
         if (col.attachedRigidbody.transform.CompareTag("Monster"))
         {
-            float dmg = Random.Range(Damage - 1, Damage + 2);
-            bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-            col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
+            float dmg = WeaponInfo.Attack_Dmg + PlayerCtrl.PlayerInfo.Attack;
+            float randDmg = Random.Range(dmg - 1, dmg + 2);
+            bool isCritical = Random.Range(0, 101) >= PlayerCtrl.PlayerInfo.Critical_Per + WeaponInfo.Critical_Per;
+            col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, randDmg, isCritical);
             Explode();
             Destroy(this.gameObject);
         }

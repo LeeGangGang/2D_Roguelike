@@ -94,7 +94,7 @@ public class MonsterAnimCtrl : MonoBehaviour
                     if (col.gameObject.CompareTag("Player"))
                     {
                         float dmg = Random.Range(MonCtrl.unit.Attack - 1, MonCtrl.unit.Attack + 2);
-                        bool isCritical = Random.Range(0f, 100f) <= MonCtrl.unit.Critical_Per;
+                        bool isCritical = Random.Range(0, 101) >= MonCtrl.unit.Critical_Per;
                         col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                         
                         takeDamage = true;

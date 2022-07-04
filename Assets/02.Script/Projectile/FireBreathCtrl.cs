@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireBreathCtrl : MonoBehaviour
 {
-    public float Damage;
+    [HideInInspector] public WeaponInfo WeaponInfo;
 
     private float DelayTime = 0.2f;
     private float CurDelayTime;
@@ -48,9 +48,10 @@ public class FireBreathCtrl : MonoBehaviour
         {
             if (CurDelayTime <= 0f)
             {
-                float dmg = Random.Range(Damage - 1, Damage + 2);
-                bool isCritical = Random.Range(0f, 100f) <= PlayerCtrl.PlayerInfo.Critical_Per;
-                col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
+                float dmg = WeaponInfo.Attack_Dmg + PlayerCtrl.PlayerInfo.Attack;
+                float randDmg = Random.Range(dmg - 1, dmg + 2);
+                bool isCritical = Random.Range(0, 101) >= PlayerCtrl.PlayerInfo.Critical_Per + WeaponInfo.Critical_Per;
+                col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, randDmg, isCritical);
                 CurDelayTime = DelayTime;
             }
         }

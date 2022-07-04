@@ -20,7 +20,7 @@ public class Boss_SkillCtrl : MonoBehaviour
             if (col.gameObject.CompareTag("Player"))
             {
                 float dmg = Random.Range(Damage - 2, Damage + 2);
-                bool isCritical = Random.Range(0f, 100f) <= 30f;
+                bool isCritical = Random.Range(0, 101) >= 30;
                 col.GetComponentInParent<UnitCtrl>().TakeDamage(this.transform.position, dmg, isCritical);
                 TakeDamage = true;
             }

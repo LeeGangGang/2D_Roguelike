@@ -41,6 +41,14 @@ public class GameManager : MonoBehaviour
         SubWeaponPos = WeaponTr[0].position;
         for (int i = 0; i < 2; i++)
         {
+            if (ReferenceEquals(PlayerCtrl.ArrWeaponCtrl[i], null))
+            {
+                WeaponImg[i].gameObject.SetActive(false);
+                continue;
+            }
+            else
+                WeaponImg[i].gameObject.SetActive(true);
+
             WeaponImg[i].sprite = PlayerCtrl.ArrWeaponCtrl[i].Info.Img;
             WeaponImg[i].type = Image.Type.Simple;
             WeaponImg[i].preserveAspect = true;
@@ -153,6 +161,7 @@ public class GameManager : MonoBehaviour
         {
             SoundManager.Inst.PlayUISound("Button1", 2f);
             ConfigBox = Instantiate(ConfigBoxPrefab, CanvasTr);
+            ConfigBox.GetComponent<ConfigBoxCtrl>().EnableHomeBtn = true;
         }
         else
         {

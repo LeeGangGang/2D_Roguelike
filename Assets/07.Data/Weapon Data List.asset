@@ -12,31 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99ef861d2289ed4fa6478998fa0a568, type: 3}
   m_Name: Weapon Data List
   m_EditorClassIdentifier: 
-  WeaponDataList:
+  WeaponInfoList:
   - Name: Shot Sword
     Attack_Dmg: 10
-    Skill_Dmg: 20
+    Skill_Dmg: 30
     Critical_Per: 75
     Defence: 0
     Attack_NeedMp: 0
     Skill_NeedMp: 10
-    Skill_Cool: 1
+    Skill_Cool: 2
     Idx: 0
     Img: {fileID: 21300000, guid: 23b0fac7728c2e848a48bd82f80c0fc9, type: 3}
   - Name: Long Sword
     Attack_Dmg: 20
-    Skill_Dmg: 35
-    Critical_Per: 30
+    Skill_Dmg: 40
+    Critical_Per: 75
     Defence: 0
     Attack_NeedMp: 0
     Skill_NeedMp: 10
-    Skill_Cool: 1
+    Skill_Cool: 2
     Idx: 1
     Img: {fileID: 21300000, guid: fac40a0c1c2567743abec794eb6bcd20, type: 3}
   - Name: Fire Staff
     Attack_Dmg: 10
     Skill_Dmg: 5
-    Critical_Per: 0
+    Critical_Per: 10
     Defence: 0
     Attack_NeedMp: 5
     Skill_NeedMp: 10
@@ -46,7 +46,7 @@ MonoBehaviour:
   - Name: EnergyBall Staff
     Attack_Dmg: 20
     Skill_Dmg: 20
-    Critical_Per: 0
+    Critical_Per: 10
     Defence: 0
     Attack_NeedMp: 5
     Skill_NeedMp: 20

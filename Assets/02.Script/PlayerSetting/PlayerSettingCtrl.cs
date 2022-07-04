@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +14,7 @@ public class PlayerSettingCtrl : MonoBehaviour
     public static GameObject SelectWeapon;   // 드래그 한 무기의 오브젝트
 
     [SerializeField] private GameObject WeaponItemPrefab;
-    [SerializeField] private WeaponDataFact WeaponDataList;
+    [SerializeField] private WeaponDataFact WeaponDataFact;
     [SerializeField] private Transform Content;
 
     [SerializeField] private Button SaveBtn;
@@ -28,23 +28,63 @@ public class PlayerSettingCtrl : MonoBehaviour
         if (!ReferenceEquals(CloseBtn, null))
             CloseBtn.onClick.AddListener(Close);
 
-        foreach (WeaponInfo weaponinfo in WeaponDataList.WeaponDataList)
+        foreach (WeaponInfo weaponinfo in WeaponDataFact.WeaponInfoList)
         {
             GameObject weaponItem = Instantiate(WeaponItemPrefab);
             weaponItem.transform.SetParent(Content);
-            weaponItem.transform.Find("Weapon").GetComponent<Image>().sprite = weaponinfo.Img;
-            weaponItem.transform.Find("Weapon").GetComponent<WeaponDragHandler>().Info = weaponinfo;
-            weaponItem.transform.Find("Lock").gameObject.SetActive(false);
+
+            Transform weaponImg = weaponItem.transform.Find("Weapon");
+            weaponImg.GetComponent<Image>().sprite = weaponinfo.Img;
+            weaponImg.GetComponent<WeaponDragHandler>().Info = weaponinfo;
+
+            if (SelectedWeapons.Contains(weaponinfo))
+            {
+                int idx = Array.IndexOf(SelectedWeapons, weaponinfo);
+                weaponImg.SetParent(WeaponSlot[idx]);
+                WeaponSlot[idx].GetComponent<WeaponSlotCtrl>().CurInObj = weaponImg.gameObject;
+                weaponImg.GetComponent<Image>().raycastTarget = false;
+                weaponImg.localPosition = Vector3.zero;
+            }
+
+            if (WeaponDataFact.IsReserve[weaponinfo.Idx] == 1)
+                weaponItem.transform.Find("Lock").gameObject.SetActive(false);
+            else
+                weaponItem.transform.Find("Lock").gameObject.SetActive(true);
+        }
+    }
+
+    private void Update()
+    {
+        // Test
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            WeaponDataFact.Save(1, WeaponDataFact.WeaponInfoList.Count);
+            WeaponDataFact.Save(3, WeaponDataFact.WeaponInfoList.Count);
         }
     }
 
     void Save()
     {
+        string arrSelectedWeapon = string.Empty;
         for (int i = 0; i < 2; i++)
         {
             if (WeaponSlot[i].childCount > 0)
+            {
                 SelectedWeapons[i] = WeaponSlot[i].GetComponentInChildren<WeaponDragHandler>().Info;
+                arrSelectedWeapon += SelectedWeapons[i].Idx;
+            }
+            else
+            {
+                SelectedWeapons[i] = null;
+                arrSelectedWeapon += "-1";
+            }
+
+            if (i == 0)
+                arrSelectedWeapon += ",";
         }
+
+        PlayerPrefs.SetString("SelectedWeapon", arrSelectedWeapon);
+
         Destroy(this.gameObject);
     }
 

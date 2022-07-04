@@ -4,18 +4,55 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponSlotCtrl : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class WeaponSlotCtrl : MonoBehaviour, IDropHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     // 현재 슬롯에 있는 무기 오브젝트
-    private GameObject CurInObj;
-    [SerializeField] private readonly int PosIdx;
+    public GameObject CurInObj;
+
+    private GameObject Canvas;
+    private Text NameTxt;
+    private Text InfoTxt;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Canvas = GameObject.Find("Canvas");
+        NameTxt = GameObject.Find("WeaponNameText").GetComponent<Text>();
+        InfoTxt = GameObject.Find("WeaponInfoText").GetComponent<Text>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (ReferenceEquals(CurInObj, null))
+            return;
+
+        WeaponInfo info = CurInObj.GetComponent<WeaponDragHandler>().Info;
+        NameTxt.text = info.Name;
+        InfoTxt.text = string.Format(
+            "Attack Dmg : {0}\n" +
+            "Attack Mp : {1}\n" +
+            "Skill Dmg : {2}\n" +
+            "Skill Mp : {3}\n" +
+            "Skill Cool : {4}\n" +
+            "Critical : {5}%\n" +
+            "Defence : {6}",
+            info.Attack_Dmg, info.Attack_NeedMp, info.Skill_Dmg,
+            info.Skill_NeedMp, info.Skill_Cool, info.Critical_Per,
+            info.Defence);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        NameTxt.text = string.Empty;
+        InfoTxt.text = string.Empty;
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (CurInObj != null)
         {
             CurInObj.GetComponent<Image>().raycastTarget = false; // Event동작을 위해raycastTarget 끈다.
-            CurInObj.transform.SetParent(GameObject.Find("Canvas").transform);
+            CurInObj.transform.SetParent(Canvas.transform);
             PlayerSettingCtrl.SelectWeapon = CurInObj;    // 현재 슬롯에 있던것을 드래그 했기에
         }
         else
@@ -53,7 +90,6 @@ public class WeaponSlotCtrl : MonoBehaviour, IDropHandler, IBeginDragHandler, ID
             }
         }
     }
-
 
     public void OnDrop(PointerEventData eventData)
     {

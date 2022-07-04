@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,8 +11,12 @@ public class TitleSceneMgr : MonoBehaviour
     public Button PlayerSettingBtn;
     public Button ConfigBtn;
 
-    public GameObject ConfigBox;
+    public GameObject ConfigPanelPrefab;
+    public GameObject PlayerSettingPrefab;
     public Transform CanvasTr;
+
+    // Data Load¿ë
+    [SerializeField] private WeaponDataFact WeaponDataFact;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,8 @@ public class TitleSceneMgr : MonoBehaviour
         if (!ReferenceEquals(ConfigBtn, null))
             ConfigBtn.onClick.AddListener(OpenConfig);
 
+        Init();
+
         SoundManager.Inst.PlayBGM("BGM/TitleBgm");
     }
 
@@ -36,6 +42,29 @@ public class TitleSceneMgr : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void Init()
+    {
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("WeaponReserve")))
+            WeaponDataFact.IsReserve = Array.ConvertAll(PlayerPrefs.GetString("WeaponReserve").Split(','), (e) => int.Parse(e));
+        else
+        {
+            WeaponDataFact.IsReserve = Enumerable.Repeat<int>(0, WeaponDataFact.WeaponInfoList.Count).ToArray<int>();
+            WeaponDataFact.IsReserve[0] = 1;
+        }
+
+        int[] arrSelectedWeapon = new int[2] { -1, -1 };
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("SelectedWeapon")))
+            arrSelectedWeapon = Array.ConvertAll(PlayerPrefs.GetString("SelectedWeapon").Split(','), (e) => int.Parse(e));
+        for (int i = 0; i < 2; i++)
+        {
+            if (arrSelectedWeapon[i] == -1)
+                continue;
+
+            WeaponInfo info = WeaponDataFact.WeaponInfoList.Where(w => w.Idx == arrSelectedWeapon[i]).First();
+            PlayerSettingCtrl.SelectedWeapons[i] = info;
+        }
     }
 
     void GameStart()
@@ -60,13 +89,15 @@ public class TitleSceneMgr : MonoBehaviour
 
     void PlayerSetting()
     {
-
+        SoundManager.Inst.PlayUISound("Button1", 2f);
+        Instantiate(PlayerSettingPrefab, CanvasTr);
     }
 
     void OpenConfig()
     {
         SoundManager.Inst.PlayUISound("Button1", 2f);
-        Instantiate(ConfigBox, CanvasTr);
+        GameObject configPanel = Instantiate(ConfigPanelPrefab, CanvasTr);
+        configPanel.GetComponent<ConfigBoxCtrl>().EnableHomeBtn = false;
     }
 
     void LoadPlayerSetting()
