@@ -23,7 +23,7 @@ public class WeaponSlotCtrl : MonoBehaviour, IDropHandler, IBeginDragHandler, ID
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (ReferenceEquals(CurInObj, null))
+        if (CurInObj == null)
             return;
 
         WeaponInfo info = CurInObj.GetComponent<WeaponDragHandler>().Info;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,32 +9,44 @@ public class GameManager : MonoBehaviour
 {
     [HideInInspector] public PlayerCtrl PlayerCtrl;
 
-    public GameObject MiniMap;
-    public Transform CanvasTr;
+    [SerializeField] private GameObject MiniMap;
+    [SerializeField] private Transform CanvasTr;
+
+    [SerializeField] private GameObject InGameUIPanel;
+    [SerializeField] private Text TimerTxt;
+    private float Timer;
 
     [Header("Player Info")]
-    public GameObject StatePanel;
-    public Image CurHpImg;
-    public Image CurMpImg;
-    public Text CurHpTxt;
-    public Text CurMpTxt;
+    [SerializeField] private GameObject StatePanel;
+    [SerializeField] private Image CurHpImg;
+    [SerializeField] private Image CurMpImg;
+    [SerializeField] private Text CurHpTxt;
+    [SerializeField] private Text CurMpTxt;
 
     [Header("Weapon Info")]
-    public GameObject WeaponPanel;
-    public Image[] WeaponImg = new Image[2];
-    public Transform[] WeaponTr = new Transform[2];
-    private Vector3 CurWeaponPos;
-    private Vector3 SubWeaponPos;
+    [SerializeField] private GameObject WeaponPanel;
+    [SerializeField] private Image[] WeaponImg = new Image[2];
+    [SerializeField] private Transform[] WeaponTr = new Transform[2];
+    [SerializeField] private Vector3 CurWeaponPos;
+    [SerializeField] private Vector3 SubWeaponPos;
 
     [Header("Config")]
-    public GameObject ConfigBoxPrefab;
+    [SerializeField] private GameObject ConfigBoxPrefab;
     private GameObject ConfigBox = null;
+
+    [Header("GameOver")]
+    [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private Text PlayTimeTxt;
+    [SerializeField] private Button LobbyBtn;
 
     private string LoadScName;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!ReferenceEquals(LobbyBtn, null))
+            LobbyBtn.onClick.AddListener(GoLobby);
+
         ConfigBox = null;
 
         PlayerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
@@ -58,6 +71,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerCtrl.CurState != AnimState.Die)
+        {
+            Timer += Time.deltaTime;
+            TimerTxt.text = TimeSpan.FromSeconds(Timer).ToString(@"hh\:mm\:ss");
+        }
+        else
+            GameOver();
+
         StateUpdate();
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -168,5 +189,21 @@ public class GameManager : MonoBehaviour
             ConfigBox.GetComponent<ConfigBoxCtrl>().Close();
             ConfigBox = null;
         }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        InGameUIPanel.SetActive(false);
+        GameOverPanel.SetActive(true);
+
+        PlayTimeTxt.text = "Time : " + TimeSpan.FromSeconds(Timer).ToString(@"hh\:mm\:ss");
+    }
+
+    void GoLobby()
+    {
+        SceneManager.LoadSceneAsync("FadeScene");
+        SceneManager.LoadScene("TitleScene", LoadSceneMode.Additive);
+        Time.timeScale = 1f;
     }
 }

@@ -44,8 +44,8 @@ MonoBehaviour:
     Idx: 2
     Img: {fileID: 21300000, guid: b12b92582d4b8e64aa51988ce199198d, type: 3}
   - Name: EnergyBall Staff
-    Attack_Dmg: 20
-    Skill_Dmg: 20
+    Attack_Dmg: 10
+    Skill_Dmg: 10
     Critical_Per: 10
     Defence: 0
     Attack_NeedMp: 5

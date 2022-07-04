@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class UnitInfo
@@ -140,5 +141,41 @@ public class UnitCtrl : MonoBehaviour
             else
                 CurState = AnimState.Hit;
         }
+    }
+
+    public void Die()
+    {
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        for (int i = 0; i < colliders.Length; i++)
+            colliders[i].enabled = false;
+
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        this.GetComponent<Rigidbody2D>().simulated = false;
+
+        int dropProbability = Random.Range(0, 101);
+        StartCoroutine(DropChest(dropProbability));
+    }
+
+    IEnumerator DropChest(int dropProbability)
+    {
+        yield return new WaitForSeconds(1);
+
+        if (dropProbability >= 50)
+        {
+            string chestType = "Wood";
+            if (dropProbability >= 90)
+                chestType = "Gold";
+            else if (dropProbability >= 80)
+                chestType = "Silver";
+            else if (dropProbability >= 70)
+                chestType = "Iron";
+
+            GameObject chest = (GameObject)Instantiate(Resources.Load("Chest/" + chestType));
+            chest.transform.SetParent(this.transform.parent);
+            chest.transform.position = this.transform.position;
+        }
+
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
     }
 }

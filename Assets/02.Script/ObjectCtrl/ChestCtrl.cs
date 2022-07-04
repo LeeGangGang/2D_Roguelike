@@ -8,6 +8,8 @@ public class ChestCtrl : Interaction
     private PlayerCtrl Player;
     bool IsOpen = false;
 
+    [SerializeField] private WeaponDataFact WeaponDataFact;
+
     public override void InteractionFunc()
     {
         if (IsOpen)
@@ -22,6 +24,21 @@ public class ChestCtrl : Interaction
 
             InteractionOnOff(false);
         }
+
+        int dropWeaponIdx = Random.Range(0, WeaponDataFact.WeaponInfoList.Count);
+        StartCoroutine(DropItem(dropWeaponIdx));
+    }
+
+    IEnumerator DropItem(int dropWeaponIdx)
+    {
+        yield return new WaitForSeconds(1);
+        GameObject weapon = (GameObject)Instantiate(Resources.Load("DropWeapon"));
+        weapon.GetComponentInChildren<SpriteRenderer>().sprite = WeaponDataFact.WeaponInfoList[dropWeaponIdx].Img;
+        weapon.GetComponentInChildren<DropWeaponCtrl>().Idx = dropWeaponIdx;
+        weapon.transform.SetParent(this.transform.parent.parent.parent);
+        weapon.transform.position = this.transform.position;
+        weapon.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
+        Destroy(this.transform.parent.parent.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D col)

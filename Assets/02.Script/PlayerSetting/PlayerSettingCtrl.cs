@@ -58,7 +58,6 @@ public class PlayerSettingCtrl : MonoBehaviour
         // Test
         if (Input.GetKeyDown(KeyCode.T))
         {
-            WeaponDataFact.Save(1, WeaponDataFact.WeaponInfoList.Count);
             WeaponDataFact.Save(3, WeaponDataFact.WeaponInfoList.Count);
         }
     }

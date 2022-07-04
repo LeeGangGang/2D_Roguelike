@@ -13,18 +13,20 @@ public class BossCtrl : UnitCtrl
     private float CurSkillCool = 10f;
     private float SkillCool = 10f;
 
-    public GameObject Skill_Prefab;
+    [SerializeField] private GameObject Skill_Prefab;
+    private List<GameObject> Skill_Pool = new List<GameObject>();
     private int MaxSkillCnt = 6;
 
-    private List<GameObject> Skill_Pool = new List<GameObject>();
-
     private AIPathFinder MyAIPathFinder;
-    public float FindPlayerTimer = 2f;
+    private float FindPlayerTimer = 2f;
     [HideInInspector] public Vector3 MoveNextPos;
     private float ScaleX;
 
-    public Image CurHpImg;
-    public Text CurHpTxt;
+    [Header("Boss UI")]
+    [SerializeField] private GameObject BossStateUI;
+    [SerializeField] private Image CurHpImg;
+    [SerializeField] private Text CurHpTxt;
+    bool IsDying = false; // CurState == Die를 한번 탔을때 true
 
     int MoveUpDown = 0; // 0 : y Dist == 0, 1 : y Dist > 0, 2 : y Dist < 0
     bool EndLanding = true;
@@ -58,13 +60,23 @@ public class BossCtrl : UnitCtrl
         if (Input.GetKeyDown(KeyCode.Alpha4))
             UseSkill();
 
+        if (CurState == AnimState.Die)
+        {
+            if (IsDying)
+                return;
+
+            BossStateUI.SetActive(false);
+            IsDying = true;
+            Die();
+        }
+
         BossAI();
     }
 
     void BossAI()
     {
         CurAttCool -= Time.deltaTime;
-        if (unit.CurHp / unit.MaxHp < 0.75f)
+        if ((float)unit.CurHp / unit.MaxHp < 0.75f)
             CurSkillCool -= Time.deltaTime;
 
         if (ReferenceEquals(TargetPlayerTr, null))
@@ -217,5 +229,10 @@ public class BossCtrl : UnitCtrl
     {
         if (col.gameObject.CompareTag("Ground"))
             EndLanding = false;
+    }
+
+    void OnDestroy()
+    {
+        GameObject.Find("GameManager").GetComponent<GameManager>().GameOver();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class CameraCtrl : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class CameraCtrl : MonoBehaviour
     bool FlowCam = true;
     public float ShakeAmount = 0.03f;
     public float ShakeCamTimer = 0.2f;
+
+    [SerializeField] private Image BloodScreenImg;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,7 @@ public class CameraCtrl : MonoBehaviour
     public void Hurt()
     {
         StartCoroutine(ShakeCam());
+        StartCoroutine(BloodScreen());
     }
 
     IEnumerator ShakeCam()
@@ -59,6 +63,13 @@ public class CameraCtrl : MonoBehaviour
             yield return null;
         }
         FlowCam = true;
+    }
+
+    IEnumerator BloodScreen()
+    {
+        BloodScreenImg.color = new Color(0.5f, 0f, 0f, Random.Range(0.2f, 0.5f));
+        yield return new WaitForSeconds(0.1f);
+        BloodScreenImg.color = Color.clear;
     }
 
     void FixedUpdate()

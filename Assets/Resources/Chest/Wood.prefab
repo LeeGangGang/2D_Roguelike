@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionBtnImg: {fileID: 7604840693081418494}
   Anim: {fileID: 5839003063310953378}
+  WeaponDataFact: {fileID: 11400000, guid: 7baf597a4d0da5c46964156f77de7a3b, type: 2}
 --- !u!61 &4546911530745818166
 BoxCollider2D:
   m_ObjectHideFlags: 0

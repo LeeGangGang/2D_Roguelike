@@ -16,9 +16,9 @@ public class MonsterCtrl : UnitCtrl
 
     private Rigidbody2D Rigid;
 
-    public Transform CanvasTr;
-    public Image CurHpImg;
-    public bool IsDying = false; // CurState == Die를 한번 탔을때 true
+    [SerializeField] private Transform CanvasTr;
+    [SerializeField] private Image CurHpImg;
+    private bool IsDying = false; // CurState == Die를 한번 탔을때 true
 
     void Awake()
     {
@@ -46,11 +46,11 @@ public class MonsterCtrl : UnitCtrl
 
         if (CurState == AnimState.Die)
         {
-            if (IsDying == false)
-            {
-                IsDying = true;
-                Die();
-            }
+            if (IsDying)
+                return;
+
+            IsDying = true;
+            Die();
         }
         else
         {
@@ -190,40 +190,5 @@ public class MonsterCtrl : UnitCtrl
             CanvasTr.gameObject.SetActive(false);
         else
             CurHpImg.fillAmount = (float)unit.CurHp / unit.MaxHp;
-    }
-
-    void Die()
-    {
-        Collider2D[] colliders = GetComponents<Collider2D>();
-        for (int i = 0; i < colliders.Length; i++)
-            colliders[i].enabled = false;
-
-        Rigid.velocity = new Vector2(0, 0);
-        Rigid.simulated = false;
-
-        int dropProbability = Random.Range(0, 101);
-        StartCoroutine(DropItem(dropProbability));
-    }
-
-    IEnumerator DropItem(int dropProbability)
-    {
-        yield return new WaitForSeconds(1);
-        
-        if (dropProbability >= 60)
-        {
-            string chestType = "Wood";
-            if (dropProbability >= 95)
-                chestType = "Gold";
-            else if (dropProbability >= 90)
-                chestType = "Silver";
-            else if (dropProbability >= 80)
-                chestType = "Iron";
-
-            GameObject chest = (GameObject)Instantiate(Resources.Load("Chest/" + chestType));
-            chest.transform.position = this.transform.position;
-        }
-
-        yield return new WaitForSeconds(1);
-        Destroy(this.gameObject);
     }
 }

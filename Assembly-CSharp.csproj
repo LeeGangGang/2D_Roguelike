@@ -91,6 +91,7 @@
     <Compile Include="Assets\02.Script\Manager\ConfigBoxCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\CursorCtrl.cs" />
     <Compile Include="Assets\02.Script\Root\Weapon.cs" />
+    <Compile Include="Assets\02.Script\ObjectCtrl\DropWeaponCtrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

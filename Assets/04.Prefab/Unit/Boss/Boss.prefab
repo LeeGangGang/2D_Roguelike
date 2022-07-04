@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5119863138286100317}
   - component: {fileID: 9104271786298087129}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: MiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
   MoveNextPos: {x: 0, y: 0, z: 0}
   CurHpImg: {fileID: 0}
   CurHpTxt: {fileID: 0}
+  IsDying: 0
   Range: 2
 --- !u!114 &8197499228577725403
 MonoBehaviour:

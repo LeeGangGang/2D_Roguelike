@@ -6,7 +6,7 @@ public class PlayerCtrl : UnitCtrl
 {
     public static UnitInfo PlayerInfo = new UnitInfo();
 
-    public GameObject[] ArrWeaponPos = new GameObject[2];
+    [SerializeField] private GameObject[] ArrWeaponPos = new GameObject[2];
     public Weapon[] ArrWeaponCtrl = new Weapon[2];
     private int weaponIdx = 0;
     public int WeaponIdx
@@ -89,8 +89,17 @@ public class PlayerCtrl : UnitCtrl
         {
             if (InteractionObj.Count > 0)
             {
-                foreach (Interaction obj in InteractionObj)
-                    obj.InteractionFunc();
+                int cnt = InteractionObj.Count;
+                for (int i = 0; i < cnt; i++)//(Interaction obj in InteractionObj)
+                {
+                    if (InteractionObj.Count > 0)
+                    {
+                        InteractionObj[0].InteractionFunc();
+                        InteractionObj.RemoveAt(0);
+                    }
+                    else
+                        break;
+                }
             }
         }
     }
@@ -143,7 +152,6 @@ public class PlayerCtrl : UnitCtrl
             {
                 Anim.SetTrigger("Attack");
                 IsAttack = true;
-                unit.CurMp -= WeaponCtrl.Info.Attack_NeedMp;
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -154,7 +162,6 @@ public class PlayerCtrl : UnitCtrl
                 {
                     Anim.SetTrigger("Skill");
                     IsSkill = true;
-                    unit.CurMp -= WeaponCtrl.Info.Skill_NeedMp;
                 }
             }
         }
@@ -185,7 +192,7 @@ public class PlayerCtrl : UnitCtrl
         else if (CurState == AnimState.Stun)
         {
             Anim.SetBool("Stun", true);
-            Invoke("StunOff", 0.5f);
+            Invoke("StunOff", 1f);
         }
     }
 

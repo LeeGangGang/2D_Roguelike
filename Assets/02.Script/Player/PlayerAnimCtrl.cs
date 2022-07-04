@@ -10,14 +10,20 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         Weapon weapon = Player.WeaponCtrl;
         if (!ReferenceEquals(weapon, null))
+        {
+            PlayerCtrl.PlayerInfo.CurMp -= weapon.Info.Attack_NeedMp;
             weapon.Attack();
+        }
     }
 
     void Skill()
     {
         Weapon weapon = Player.WeaponCtrl;
         if (!ReferenceEquals(weapon, null))
+        {
+            PlayerCtrl.PlayerInfo.CurMp -= weapon.Info.Skill_NeedMp;
             weapon.Skill();
+        }
     }
 
     void AttackEnd()
