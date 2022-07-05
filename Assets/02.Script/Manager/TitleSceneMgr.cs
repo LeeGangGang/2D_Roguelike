@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class TitleSceneMgr : MonoBehaviour
 {
-    public Button PlayBtn;
-    public Button ExitBtn;
-    public Button PlayerSettingBtn;
-    public Button ConfigBtn;
+    [SerializeField] private Button PlayBtn;
+    [SerializeField] private Button ExitBtn;
+    [SerializeField] private Button PlayerSettingBtn;
+    [SerializeField] private Button ConfigBtn;
 
-    public GameObject ConfigPanelPrefab;
-    public GameObject PlayerSettingPrefab;
-    public Transform CanvasTr;
+    [SerializeField] private GameObject ConfigPanelPrefab;
+    [SerializeField] private GameObject PlayerSettingPrefab;
+    [SerializeField] private Transform CanvasTr;
 
     // Data Load¿ë
     [SerializeField] private WeaponDataFact WeaponDataFact;

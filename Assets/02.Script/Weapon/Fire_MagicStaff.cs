@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fire_MagicStaff : Weapon
 {
-    public GameObject FireBreath; // 일반
-    public GameObject FireField;  // 스킬
+    [SerializeField] private GameObject FireBreath; // 일반
+    [SerializeField] private GameObject FireField;  // 스킬
 
     public override void Attack()
     {

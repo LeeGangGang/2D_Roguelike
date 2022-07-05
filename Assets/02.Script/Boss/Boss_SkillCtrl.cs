@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss_SkillCtrl : MonoBehaviour
 {
-    public BoxCollider2D SkillRange;
+    [SerializeField] private BoxCollider2D SkillRange;
     public float Damage = 10f;
     public bool TakeDamage = false;
 

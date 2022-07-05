@@ -1,23 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class CameraCtrl : MonoBehaviour
 {
-    Transform m_Player;
+    private Transform m_Player;
 
-    float Height;
-    float Width;
-    float MoveSpeed = 4f;
+    private float Height;
+    private float Width;
+    private float MoveSpeed = 4f;
 
-    Vector2 MapCenter = Vector2.zero;
-    Vector2 MapSize = Vector2.zero;
+    private Vector2 MapCenter = Vector2.zero;
+    private Vector2 MapSize = Vector2.zero;
 
-    bool FlowCam = true;
-    public float ShakeAmount = 0.03f;
-    public float ShakeCamTimer = 0.2f;
+    private bool FlowCam = true;
+    private float ShakeAmount = 0.03f;
+    private float ShakeCamTimer = 0.2f;
 
     [SerializeField] private Image BloodScreenImg;
 

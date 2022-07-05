@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
-    public PlayerCtrl Player;
+    [SerializeField] private PlayerCtrl Player;
 
     void Attack()
     {

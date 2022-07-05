@@ -61,7 +61,6 @@
     <Compile Include="Assets\02.Script\Projectile\FireFieldCtrl.cs" />
     <Compile Include="Assets\02.Script\Weapon\Energy_MagicStaff.cs" />
     <Compile Include="Assets\02.Script\Projectile\SwordAttackCtrl.cs" />
-    <Compile Include="Assets\02.Script\EffectorGroundCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\BackgroundCtrl.cs" />
     <Compile Include="Assets\02.Script\Monster\SkeletonCtrl.cs" />
     <Compile Include="Assets\02.Script\Boss\Boss_SkillCtrl.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Assets\02.Script\Boss\BossCtrl.cs" />
     <Compile Include="Assets\02.Script\PlayerSpawnPos.cs" />
     <Compile Include="Assets\02.Script\Root\UnitData.cs" />
+    <Compile Include="Assets\02.Script\ObjectCtrl\DropWeaponCtrl.cs" />
     <Compile Include="Assets\02.Script\Manager\GameManager.cs" />
     <Compile Include="Assets\02.Script\Boss\AIPathFinder.cs" />
     <Compile Include="Assets\02.Script\Manager\TitleSceneMgr.cs" />
@@ -91,7 +91,6 @@
     <Compile Include="Assets\02.Script\Manager\ConfigBoxCtrl.cs" />
     <Compile Include="Assets\02.Script\InGamePlayCtrl\CursorCtrl.cs" />
     <Compile Include="Assets\02.Script\Root\Weapon.cs" />
-    <Compile Include="Assets\02.Script\ObjectCtrl\DropWeaponCtrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

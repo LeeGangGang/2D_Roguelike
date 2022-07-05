@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChestCtrl : Interaction
 {
-    public Animator Anim;
+    [SerializeField] private Animator Anim;
     private PlayerCtrl Player;
     bool IsOpen = false;
 

@@ -44,7 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb62e243b467f6541ba6d82c1db19a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconImg: {fileID: 4883219629394664861}
+  Info:
+    Name: 
+    Attack_Dmg: 0
+    Skill_Dmg: 0
+    Critical_Per: 0
+    Defence: 0
+    Attack_NeedMp: 0
+    Skill_NeedMp: 0
+    Skill_Cool: 0
+    Idx: 0
+    Img: {fileID: 0}
   EnergyBall: {fileID: 4742218895790829264, guid: bcce94007aa6cef43b91fb9c6d084833, type: 3}
   ShotPos: {fileID: 4883219629426269613}
 --- !u!1 &4883219629394664861
@@ -117,7 +127,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1447277887
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 15
   m_Sprite: {fileID: 21300000, guid: 1111ca63cf8d64942b6f5161b2cd4830, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

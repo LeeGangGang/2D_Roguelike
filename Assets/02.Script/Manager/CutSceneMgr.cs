@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -7,11 +6,10 @@ using UnityEngine.UI;
 
 public class CutSceneMgr : MonoBehaviour
 {
-    public GameObject Boss;
     private PlayableDirector PD;
     private TimelineAsset TA;
-    public Object Cam;
-    public Text InfoText;
+    private Object Cam;
+    [SerializeField] private Text InfoText;
 
     // Start is called before the first frame update
     void Start()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +8,7 @@ public class MonsterCtrl : UnitCtrl
 
     private float CurAttCool;
 
-    public bool IsFly = false;
+    [SerializeField] private bool IsFly = false;
     private Vector2 NextMove;
     private float MoveLimitX, MoveLimitY;
 

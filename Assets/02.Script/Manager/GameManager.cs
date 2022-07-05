@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -39,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text PlayTimeTxt;
     [SerializeField] private Button LobbyBtn;
 
+    bool IsDying = false; // CurState == Die를 한번 탔을때 true
     private string LoadScName;
 
     // Start is called before the first frame update
@@ -77,7 +77,13 @@ public class GameManager : MonoBehaviour
             TimerTxt.text = TimeSpan.FromSeconds(Timer).ToString(@"hh\:mm\:ss");
         }
         else
+        {
+            if (IsDying)
+                return;
+
+            IsDying = true;
             GameOver();
+        }
 
         StateUpdate();
 
@@ -171,6 +177,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerUIOnOff(bool isShow)
     {
+        TimerTxt.gameObject.SetActive(isShow);
         MiniMap.SetActive(isShow);
         StatePanel.SetActive(isShow);
         WeaponPanel.SetActive(isShow);
@@ -202,8 +209,8 @@ public class GameManager : MonoBehaviour
 
     void GoLobby()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync("FadeScene");
         SceneManager.LoadScene("TitleScene", LoadSceneMode.Additive);
-        Time.timeScale = 1f;
     }
 }

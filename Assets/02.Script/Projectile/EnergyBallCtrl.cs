@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnergyBallCtrl : MonoBehaviour
@@ -11,9 +9,9 @@ public class EnergyBallCtrl : MonoBehaviour
 
     //À¯µµÅº º¯¼ö
     bool IsTaget = false;
-    [HideInInspector] public GameObject TargetObj = null;
+    private GameObject TargetObj = null;
 
-    public GameObject Explosion;
+    [SerializeField] private GameObject Explosion;
 
     // Update is called once per frame
     void Update()

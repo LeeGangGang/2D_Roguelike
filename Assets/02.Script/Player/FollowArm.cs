@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowArm : MonoBehaviour
 {
-    public PlayerCtrl Player;
+    [SerializeField] private PlayerCtrl Player;
 
     // Update is called once per frame
     void Update()

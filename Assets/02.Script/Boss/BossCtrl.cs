@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -233,6 +232,9 @@ public class BossCtrl : UnitCtrl
 
     void OnDestroy()
     {
+        if (unit.CurHp > 0)
+            return;
+
         GameObject.Find("GameManager").GetComponent<GameManager>().GameOver();
     }
 }

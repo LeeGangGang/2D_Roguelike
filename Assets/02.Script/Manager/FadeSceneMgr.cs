@@ -1,16 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FadeSceneMgr : MonoBehaviour
 {
     // CanvasGroup 저장할 변수
-    public CanvasGroup FadeCanvasGroup;
+    [SerializeField] private CanvasGroup FadeCanvasGroup;
 
     // Fade In 처리 시간
     [Range(0.5f, 1.0f)]
-    public float FadeDuration = 1.0f;
+    private float FadeDuration = 1.0f;
 
     // Start is called before the first frame update
     void Start()

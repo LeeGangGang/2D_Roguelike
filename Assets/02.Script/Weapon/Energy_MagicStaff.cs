@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Energy_MagicStaff : Weapon
 {
-    public GameObject EnergyBall;
-    public Transform ShotPos;
+    [SerializeField] private GameObject EnergyBall;
+    [SerializeField] private Transform ShotPos;
 
     public override void Attack()
     {

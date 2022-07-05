@@ -7,7 +7,7 @@ public class PlayerSettingCtrl : MonoBehaviour
 {
     // 장착한 무기의 정보
     public static WeaponInfo[] SelectedWeapons = new WeaponInfo[2];
-    public Transform[] WeaponSlot = new Transform[2];
+    [SerializeField] private Transform[] WeaponSlot = new Transform[2];
 
     // Drag는 하나만 가능하여 static으로 관리
     public static Transform StartParent;    // 드래그 한 무기의 드래그 시점 위치

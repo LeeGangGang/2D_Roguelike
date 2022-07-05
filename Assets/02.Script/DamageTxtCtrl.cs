@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DamageTxtCtrl : MonoBehaviour
 {
@@ -11,7 +8,6 @@ public class DamageTxtCtrl : MonoBehaviour
 
     [HideInInspector] public int DamageVal = 0;
     [HideInInspector] public bool IsCritical = false;
-    private float PosY;
     private float MoveSpeed;
     private float AlphaSpeed;
     private float DestroyTime;

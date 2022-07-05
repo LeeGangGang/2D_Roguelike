@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SwordAttackCtrl : MonoBehaviour
 {
-    public Sword WeaponInfo;
+    [SerializeField] private Sword WeaponInfo;
     
     void OnTriggerEnter2D(Collider2D col)
     {

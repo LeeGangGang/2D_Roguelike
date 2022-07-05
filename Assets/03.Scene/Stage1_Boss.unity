@@ -695,7 +695,6 @@ GameObject:
   - component: {fileID: 673697590}
   - component: {fileID: 673697589}
   - component: {fileID: 673697588}
-  - component: {fileID: 673697594}
   m_Layer: 6
   m_Name: Effector_Tilemap
   m_TagString: Ground
@@ -1398,18 +1397,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &673697594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673697586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6a437e0f1a854d4b86289a9e43b92ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &688741767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2046,9 +2033,6 @@ MonoBehaviour:
   - {fileID: 367181242}
   - {fileID: 1219950811}
   - {fileID: 985373373}
-  ParallaxScale: 3
-  ParallaxReductionFactor: 2
-  Smoothing: 1
 --- !u!4 &1016671272
 Transform:
   m_ObjectHideFlags: 0
@@ -4197,8 +4181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34df8d601ca8124882494fb6d2864de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boss: {fileID: 0}
-  Cam: {fileID: 0}
   InfoText: {fileID: 1019369918}
 --- !u!114 &1510678449
 MonoBehaviour:

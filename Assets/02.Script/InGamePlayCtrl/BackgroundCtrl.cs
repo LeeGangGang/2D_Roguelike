@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundCtrl : MonoBehaviour
 {
     public GameObject[] ArrBackImg = new GameObject[4];
-    public float ParallaxScale = 3f;
-    public float ParallaxReductionFactor = 1f;
-    public float Smoothing = 1f;
+    private float ParallaxScale = 3f;
+    private float ParallaxReductionFactor = 1f;
+    private float Smoothing = 1f;
     private Vector3 PreviousCamPos;
 
     // Update is called once per frame

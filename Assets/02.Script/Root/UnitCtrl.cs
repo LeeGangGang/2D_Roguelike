@@ -8,10 +8,10 @@ public class UnitInfo
     public int CurHp = 100;             // 현재 체력
     public int MaxHp = 100;             // 최대 체력
 
-    public int CurMp = 100;             // 현재 마력
-    public int MaxMp = 100;             // 최대 마력
+    public int CurMp = 200;             // 현재 마력
+    public int MaxMp = 200;             // 최대 마력
 
-    public float Attack = 1f;           // 공격력
+    public float Attack = 0f;           // 공격력
     public float Critical_Per = 10f;    // 치명타 확률
     public float AttackCool = 2f;       // 공격 쿨타임
 
